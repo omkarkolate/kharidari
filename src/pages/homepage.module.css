@@ -1,0 +1,62 @@
+.homepage-header {
+  background-color: var(--color-primary);
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  /* border-bottom: 1px solid #dcd9d9; */
+}
+
+.brand-name {
+  margin: 0 0.3rem;
+  color: white;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.cart-icon {
+  margin-left: auto;
+}
+
+.login {
+  color: white;
+  margin-left: 0.5rem;
+}
+
+.search-bar {
+  background-color: var(--color-primary);
+  padding: 0.5rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.categories-section {
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.category-card {
+  /* border: 1px solid black; */
+  max-width: max-content;
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+  margin: 0.3rem;
+  box-shadow: 0 0px 0px 0 rgb(0 0 0 / 20%), 0 0px 1px 0 rgb(0 0 0 / 19%);
+}
+
+.category-img > span {
+  font-size: 4rem;
+}
+
+.category-img {
+  margin-bottom: 0.5rem;
+}
+
+.category-name {
+  font-size: medium;
+  font-weight: 500;
+}

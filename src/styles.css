@@ -1,4 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
+
+:root {
+  --color-primary: #2874f0;
+}
+
+body {
+  margin: 0;
+}
+
 .App {
-  font-family: sans-serif;
-  text-align: center;
+  font-family: "Roboto", sans-serif;
 }
