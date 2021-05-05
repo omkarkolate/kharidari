@@ -1,7 +1,5 @@
 import styles from "./header.module.css";
 
-//className={styles[""]}
-
 export default function Header() {
   return (
     <header className={styles["header"]}>
@@ -9,15 +7,15 @@ export default function Header() {
         <div className={styles["header-back-btn"]}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-arrow-left"
+            className="icon icon-tabler icon-tabler-arrow-left"
             width="20"
             height="20"
             viewBox="0 0 24 24"
-            stroke-width="2"
+            strokeWidth="2"
             stroke="#ffffff"
             fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <line x1="5" y1="12" x2="19" y2="12" />
@@ -25,7 +23,9 @@ export default function Header() {
             <line x1="5" y1="12" x2="11" y2="6" />
           </svg>
         </div>
-        <div className={styles["header-page-name"]}>Mens Clothing SS21</div>
+        <div className={styles["header-page-name"]}>
+          Mens Clothing SS21 trying text
+        </div>
       </div>
       <div className={styles["header-right"]}>
         <div className={styles["header-right-icon"]}>
@@ -71,12 +71,3 @@ export default function Header() {
     </header>
   );
 }
-
-/*
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <line x1="5" y1="12" x2="19" y2="12" />
-  <line x1="5" y1="12" x2="11" y2="18" />
-  <line x1="5" y1="12" x2="11" y2="6" />
-</svg>
-*/

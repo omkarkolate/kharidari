@@ -5,18 +5,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;
 }
 
 .header-left {
   display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  align-items: center;
+  line-height: 100%;
 }
 
 .header-right {
   display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  line-height: 100%;
 }
 
 .header-page-name {
   margin-left: 1rem;
+  white-space: nowrap;
 }
 
 .header-right-icon {
