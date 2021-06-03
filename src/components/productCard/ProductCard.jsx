@@ -11,7 +11,7 @@ export default function ProductCard({ image }) {
       </div>
       <div className={styles["product-info"]}>
         <div className={styles["product-name"]}>ADIDAS</div>
-        <div className={styles["product-price"]}>₹ 999</div>
+        <div className={styles["product-price"]}>₹999</div>
       </div>
     </div>
   );

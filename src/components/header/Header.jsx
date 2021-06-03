@@ -1,6 +1,6 @@
 import styles from "./header.module.css";
 
-export default function Header() {
+export default function Header({ productCategory }) {
   return (
     <header className={styles["header"]}>
       <div className={styles["header-left"]}>
@@ -23,9 +23,7 @@ export default function Header() {
             <line x1="5" y1="12" x2="11" y2="6" />
           </svg>
         </div>
-        <div className={styles["header-page-name"]}>
-          Mens Clothing SS21 trying text
-        </div>
+        <div className={styles["header-page-name"]}>{productCategory ?? ""}</div>
       </div>
       <div className={styles["header-right"]}>
         <div className={styles["header-right-icon"]}>
