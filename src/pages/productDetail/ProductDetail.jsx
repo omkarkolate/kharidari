@@ -1,7 +1,7 @@
 import { Header } from "../../components/index";
-import styles from "./productPage.module.css";
+import styles from "./productDetail.module.css";
 
-export default function ProductPage() {
+export default function ProductDetail() {
   return (
     <div>
       <Header />

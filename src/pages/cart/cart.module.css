@@ -1,0 +1,107 @@
+.cart-page {
+  background-color: #f1f3f6;
+  padding-bottom: 5rem;
+}
+
+.cart-item-card {
+  background-color: white;
+  margin-top: 1rem;
+}
+
+.card-flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.product-price {
+  margin: 0.5rem 0;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.product-quantity select {
+  width: 4.5rem;
+}
+
+.cart-card-actions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 0.9rem;
+  border-top: 1px solid lightgrey;
+}
+
+.move-to-wishlist,
+.remove {
+  flex-basis: 100%;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 100%;
+}
+
+.move-to-wishlist {
+  border-right: 1px solid lightgrey;
+}
+
+.price-details {
+  background-color: white;
+  margin: 2rem 0;
+}
+
+.details-card-heading {
+  color: grey;
+  font-weight: 500;
+  padding: 1rem;
+  border-bottom: 1px solid lightgrey;
+}
+
+.details {
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-bottom: 1px dotted lightgrey;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.total {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.place-order-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 92%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 -5px 5px 0 #ddd9d9;
+}
+
+.total-amount {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.place-order-btn {
+  background-color: #f05632;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 2rem;
+  border-radius: 0.2rem;
+}
+
+.text-green {
+  color: green;
+}
