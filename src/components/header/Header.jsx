@@ -1,6 +1,7 @@
 import styles from "./header.module.css";
 
-export default function Header({ productCategory }) {
+export default function Header({ title, headerRightHide }) {
+  const headerRightShowOrHide = headerRightHide ? "hide" : "header-right";
   return (
     <header className={styles["header"]}>
       <div className={styles["header-left"]}>
@@ -23,9 +24,9 @@ export default function Header({ productCategory }) {
             <line x1="5" y1="12" x2="11" y2="6" />
           </svg>
         </div>
-        <div className={styles["header-page-name"]}>{productCategory ?? ""}</div>
+        <div className={styles["header-page-name"]}>{title ?? ""}</div>
       </div>
-      <div className={styles["header-right"]}>
+      <div className={styles[`${headerRightShowOrHide}`]}>
         <div className={styles["header-right-icon"]}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
