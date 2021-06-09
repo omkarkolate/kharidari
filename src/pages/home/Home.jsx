@@ -1,6 +1,6 @@
-import styles from "./homepage.module.css";
+import styles from "./home.module.css";
 
-export default function Homepage() {
+export function Home() {
   return (
     <div>
       <header className={styles["homepage-header"]}>
