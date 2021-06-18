@@ -1,10 +1,10 @@
-import { Header } from "../../components/index";
+import { Header } from "../../components/";
 import styles from "./cart.module.css";
 
-export default function Cart() {
+export function Cart() {
   return (
     <div className={styles["cart-page"]}>
-      <Header title="My Cart" headerRightHide={true} />
+      <Header brandName title="My Cart" />
       <div className={styles["cart-item-card"]}>
         <div className={styles["card-flex-wrapper"]}>
           <div className={styles["card-left"]}>

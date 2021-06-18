@@ -2,6 +2,8 @@
 
 :root {
   --color-primary: #2874f0;
+  --bg-color: #f1f3f6;
+  --color-white: white;
 }
 
 body {
@@ -10,4 +12,10 @@ body {
 
 .App {
   font-family: "Roboto", sans-serif;
+}
+
+a,
+:visited {
+  text-decoration: none;
+  color: initial;
 }

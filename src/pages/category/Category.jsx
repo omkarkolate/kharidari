@@ -5,12 +5,12 @@ export function Category() {
   const products = [];
 
   for (let index = 0; index < 10; index++) {
-    products.push(<ProductCard key={index} image={index} />);
+    products.push(<ProductCard key={index} id={index} />);
   }
 
   return (
     <div>
-      <Header productCategory="Mens Clothing SS21 trying text" />
+      <Header brandName searchIcon />
       <SortAndFilter />
       <div className={styles["product-grid"]}>{products}</div>
     </div>

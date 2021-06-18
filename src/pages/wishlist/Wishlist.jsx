@@ -5,12 +5,12 @@ export function Wishlist() {
   const products = [];
 
   for (let index = 0; index < 5; index++) {
-    products.push(<ProductCard key={index} image={index} />);
+    products.push(<ProductCard key={index} id={index} />);
   }
 
   return (
     <div>
-      <Header title="My Wishlist" />
+      <Header brandName title="My Wishlist" />
       <div className={styles["product-grid"]}>{products}</div>
     </div>
   );

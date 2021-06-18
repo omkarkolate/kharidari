@@ -1,10 +1,10 @@
-import { Header } from "../../components/index";
+import { Header } from "../../components/";
 import styles from "./productDetail.module.css";
 
-export default function ProductDetail() {
+export function ProductDetail() {
   return (
     <div>
-      <Header />
+      <Header brandName/>
       <div className={styles["wrapper"]}>
         <div className={styles["product-img"]}>
           <img src={`https://picsum.photos/300/360?random=1`} alt="product" />

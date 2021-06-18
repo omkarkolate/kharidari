@@ -1,6 +1,6 @@
 import styles from "./sortAndFilter.module.css";
 
-export default function SortAndFilter() {
+export function SortAndFilter() {
   return (
     <div className={styles["wrapper"]}>
       <div className={styles["sort"]}>
