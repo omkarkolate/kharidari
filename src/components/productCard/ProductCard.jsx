@@ -7,7 +7,7 @@ export function ProductCard({ id }) {
       <Link to={`/productDetail/${id}`}>
         <div className={styles["product-img"]}>
           <img
-            src={`https://picsum.photos/500/300?random=${id}`}
+            src={`https://picsum.photos/300/500?random=${id}`}
             alt="product"
           />
         </div>

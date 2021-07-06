@@ -9,7 +9,7 @@ export function Category() {
   }
 
   return (
-    <div>
+    <div className={styles["category-page"]}>
       <Header brandName searchIcon />
       <SortAndFilter />
       <div className={styles["product-grid"]}>{products}</div>

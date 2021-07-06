@@ -8,10 +8,13 @@
 
 body {
   margin: 0;
+  height: 100vh;
+
 }
 
 .App {
   font-family: "Roboto", sans-serif;
+  height: 100vh;
 }
 
 a,
