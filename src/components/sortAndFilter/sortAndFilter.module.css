@@ -1,8 +1,12 @@
-.wrapper {
+.mobile-view {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   box-shadow: 0 5px 5px 0 #ddd9d9;
+}
+
+.desktop-view {
+  display: none;
 }
 
 .sort,
@@ -23,7 +27,24 @@
 }
 
 @media screen and (min-width: 768px) {
-  .wrapper {
+  .mobile-view {
     display: none;
+  }
+
+  .desktop-view {
+    display: flex;
+    margin: 1rem;
+    background-color: var(--color-white);
+  }
+
+  .sort-by,
+  .filter-by {
+    display: flex;
+    justify-content: space-evenly;
+    flex-basis: 50%;
+  }
+
+  .field {
+    display: flex;
   }
 }
