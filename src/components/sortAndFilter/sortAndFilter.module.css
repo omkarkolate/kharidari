@@ -79,5 +79,6 @@
 
   .field {
     display: flex;
+    margin: 0;
   }
 }
