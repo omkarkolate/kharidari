@@ -93,6 +93,17 @@
 
   .product-page-actions {
     position: relative;
+    justify-content: space-between;
+  }
+
+  .add-to-cart,
+  .order-it {
+    flex-basis: 48%;
+  }
+
+  .add-to-cart {
+    background-color: #f59e28;
+    color: white;
   }
 }
 
