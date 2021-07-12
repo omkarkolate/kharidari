@@ -6,12 +6,12 @@
   --color-white: white;
   --color-primary: #f05632;
   --color-secondary: #f59e28;
+  --color-lightgrey: lightgrey;
 }
 
 body {
   margin: 0;
   height: 100vh;
-
 }
 
 .App {
