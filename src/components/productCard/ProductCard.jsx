@@ -12,7 +12,7 @@ export function ProductCard({ id, icon }) {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="#9e9e9e"
-        fill="#9e9e9e"
+        fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
