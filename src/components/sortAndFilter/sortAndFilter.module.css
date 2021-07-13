@@ -36,6 +36,7 @@
   overflow: hidden;
   display: grid;
   grid-template-rows: 4fr 1fr;
+  z-index: 1;
 }
 
 .cover {

@@ -5,7 +5,7 @@ export function Wishlist() {
   const products = [];
 
   for (let index = 0; index < 5; index++) {
-    products.push(<ProductCard key={index} id={index} />);
+    products.push(<ProductCard key={index} id={index} icon="trash" />);
   }
 
   return (

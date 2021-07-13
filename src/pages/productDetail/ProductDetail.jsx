@@ -2,16 +2,37 @@ import { Header } from "../../components/";
 import styles from "./productDetail.module.css";
 
 export function ProductDetail() {
+  const heartIcon = (
+    <div className={styles["wishlist-action-btn"]}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className={`icon icon-tabler icon-tabler-heart`}
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="#9e9e9e"
+        fill="#9e9e9e"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+      </svg>
+    </div>
+  );
+
   return (
     <div>
       <Header brandName />
       <div className={styles["wrapper"]}>
         <div className={styles["product-img"]}>
           <img src={`https://picsum.photos/300/360?random=1`} alt="product" />
+          {heartIcon}
           <div className={styles["product-page-actions"]}>
-          <div className={styles["add-to-cart"]}>ADD TO CART</div>
-          <div className={styles["order-it"]}>ORDER IT</div>
-        </div>
+            <div className={styles["add-to-cart"]}>ADD TO CART</div>
+            <div className={styles["order-it"]}>ORDER IT</div>
+          </div>
         </div>
         <div className={styles["product-metadata"]}>
           <div className={styles["product-name"]}>VAN HEUSEN</div>
