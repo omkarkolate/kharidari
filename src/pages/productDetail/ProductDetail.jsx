@@ -1,5 +1,6 @@
 import { Header } from "../../components/";
 import styles from "./productDetail.module.css";
+import { Link } from "react-router-dom";
 
 export function ProductDetail() {
   const heartIcon = (
@@ -30,8 +31,16 @@ export function ProductDetail() {
           <img src={`https://picsum.photos/300/360?random=1`} alt="product" />
           {heartIcon}
           <div className={styles["product-page-actions"]}>
-            <div className={styles["add-to-cart"]}>ADD TO CART</div>
-            <div className={styles["order-it"]}>ORDER IT</div>
+            <div className={styles["add-to-cart-btn"]}>
+              <Link to="/cart">
+                <div className={styles["add-to-cart"]}>ADD TO CART</div>
+              </Link>
+            </div>
+            <div className={styles["order-it-btn"]}>
+              <Link to="/checkout">
+                <div className={styles["order-it"]}>ORDER IT</div>
+              </Link>
+            </div>
           </div>
         </div>
         <div className={styles["product-metadata"]}>

@@ -6,7 +6,9 @@ import {
   Cart,
   Wishlist,
   Address,
-  AddNewAddress
+  AddNewAddress,
+  Checkout,
+  Payment
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 
@@ -15,12 +17,14 @@ export default function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/:category" element={<Category />} />
+        <Route path="/category/:category" element={<Category />} />
         <Route path="/productDetail/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/address" element={<Address />} />
         <Route path="/address/add-new-address" element={<AddNewAddress />} />
+        <Route path="/checkout" element={<Checkout />} />  
+        <Route path="/payment" element={<Payment />} />      
       </Routes>
     </div>
   );

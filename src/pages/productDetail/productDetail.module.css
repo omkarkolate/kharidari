@@ -69,18 +69,18 @@
   background-color: white;
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
   box-shadow: 0 -5px 5px 0 #ddd9d9;
+}
+
+.add-to-cart-btn,
+.order-it-btn {
+  flex-basis: 50%;
 }
 
 .add-to-cart,
 .order-it {
-  flex-basis: 100%;
   padding: 1rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   line-height: 100%;
 }
 

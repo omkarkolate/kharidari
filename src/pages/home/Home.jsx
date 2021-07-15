@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export function Home() {
   return (
     <div>
-      <Header homepage brandName/>
+      <Header homepage brandName />
       <div className={styles["search-bar"]}>
         <input
           type="search"
@@ -13,11 +13,8 @@ export function Home() {
         />
       </div>
       <section className={styles["categories-section"]}>
-        <Link to="/fashion">
-          <div
-            className={styles["category-card"]}
-            role="button"
-          >
+        <Link to="category/fashion">
+          <div className={styles["category-card"]} role="button">
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
                 👫
@@ -26,7 +23,7 @@ export function Home() {
             <div className={styles["category-name"]}>Fashion</div>
           </div>
         </Link>
-        <Link to="/mobiles">
+        <Link to="category/mobiles">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -36,7 +33,7 @@ export function Home() {
             <div className={styles["category-name"]}>Mobiles</div>
           </div>
         </Link>
-        <Link to="/electronics">
+        <Link to="category/electronics">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -46,7 +43,7 @@ export function Home() {
             <div className={styles["category-name"]}>Electronics</div>
           </div>
         </Link>
-        <Link to="/home">
+        <Link to="category/home">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -56,7 +53,7 @@ export function Home() {
             <div className={styles["category-name"]}>Home</div>
           </div>
         </Link>
-        <Link to="/appliances">
+        <Link to="category/appliances">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -66,7 +63,7 @@ export function Home() {
             <div className={styles["category-name"]}>Appliances</div>
           </div>
         </Link>
-        <Link to="/beauty">
+        <Link to="category/beauty">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -76,7 +73,7 @@ export function Home() {
             <div className={styles["category-name"]}>Beauty</div>
           </div>
         </Link>
-        <Link to="/Toys">
+        <Link to="category/Toys">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -86,7 +83,7 @@ export function Home() {
             <div className={styles["category-name"]}>Toys</div>
           </div>
         </Link>
-        <Link to="/furniture">
+        <Link to="category/furniture">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
@@ -96,7 +93,7 @@ export function Home() {
             <div className={styles["category-name"]}>Furniture</div>
           </div>
         </Link>
-        <Link to="/sports">
+        <Link to="category/sports">
           <div className={styles["category-card"]}>
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">

@@ -1,8 +1,38 @@
-.cart-page {
+.checkout-page {
   background-color: var(--bg-color);
   min-height: 100%;
   padding-bottom: 5rem;
 }
+
+.delivery-address {
+  background-color: var(--color-white);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.address-card {
+  background-color: var(--color-white);
+}
+
+.address-name {
+  font-size: 1.2rem;
+}
+
+.address-details,
+.address-mobileno {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.change-address-btn {
+  width: 100%;
+  background-color: var(--color-theme);
+  color: var(--color-white);
+  padding: 0.5rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
 
 .cart-item-card {
   background-color: var(--color-white);
@@ -25,31 +55,9 @@
   width: 4.5rem;
 }
 
-.cart-card-actions {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  font-size: 0.9rem;
-  border-top: 1px solid var(--color-lightgrey);
-}
-
-.move-to-wishlist,
-.remove {
-  flex-basis: 100%;
-  padding: 1rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  line-height: 100%;
-}
-
-.move-to-wishlist {
-  border-right: 1px solid var(--color-lightgrey);
-}
-
 .price-details {
   background-color: white;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 .details-card-heading {
@@ -107,58 +115,4 @@
 
 .text-green {
   color: green;
-}
-
-@media screen and (min-width: 768px) {
-  .cart-flex-wrapper {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .cart-product-list {
-    background-color: var(--color-white);
-    flex-basis: 60%;
-    margin-top: 2rem;
-  }
-
-  .price-details {
-    flex-basis: 30%;
-  }
-
-  .cart-item-card {
-    border-top: 1px solid var(--color-lightgrey);
-    margin: 0;
-  }
-
-  .place-order-bar {
-    position: relative;
-    width: auto;
-    padding: 1rem;
-    justify-content: flex-end;
-    margin-top: 1rem;
-  }
-
-  .total-amount {
-    display: none;
-  }
-
-  .place-order-btn {
-    padding: 1rem 2rem;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .details-total-wrapper {
-    padding: 1rem 1.5rem;
-  }
-
-  .row {
-    margin: 1rem 0;
-  }
-
-  .total {
-    font-size: 1.2rem;
-    border-bottom: 1px dotted var(--color-lightgrey);
-    padding: 1rem 0;
-  }
 }
