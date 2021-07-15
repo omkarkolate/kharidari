@@ -1,6 +1,7 @@
 .wrapper {
   padding: 0.5rem;
   padding-bottom: 5rem;
+  background-color: var(--color-white);
 }
 
 .product-img {

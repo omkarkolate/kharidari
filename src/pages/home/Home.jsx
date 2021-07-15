@@ -17,7 +17,6 @@ export function Home() {
           <div
             className={styles["category-card"]}
             role="button"
-            onClick={() => console.log("Category selected...")}
           >
             <div className={styles["category-img"]}>
               <span role="img" aria-label="Clothing">
