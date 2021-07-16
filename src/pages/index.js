@@ -7,3 +7,4 @@ export { Address } from "./address/Address";
 export { AddNewAddress } from "./address/AddNewAddress";
 export { Checkout } from "./checkout/Checkout";
 export { Payment } from "./payment/Payment";
+export { General } from "./general/General";

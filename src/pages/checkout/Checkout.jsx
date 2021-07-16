@@ -76,7 +76,7 @@ export function Checkout() {
 
           <div className={styles["place-order-bar"]}>
             <div className={styles["total-amount"]}>24,998</div>
-            <Link to="/payment">
+            <Link to="/successful">
               <div className={styles["place-order-btn"]}>CONTINUE</div>
             </Link>
           </div>
