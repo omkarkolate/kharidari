@@ -1,13 +1,109 @@
 import styles from "./header.module.css";
 import { Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { useState } from "react";
 
 export function Header({ homepage, brandName, title, searchIcon }) {
-  let history = createBrowserHistory();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserLogedIn, setIsUserLogedIn] = useState(true);
+
+  const history = createBrowserHistory();
 
   function goBack() {
     history.back();
   }
+
+  function handleDropDownMenu() {
+    if (!isMenuOpen) {
+      setIsMenuOpen(true);
+    } else {
+      setIsMenuOpen(false);
+    }
+  }
+
+  const userAndArrowIcon = (
+    <div className={styles["user-and-arrow-icon"]} onClick={handleDropDownMenu}>
+      <div className={styles["user-icon-and-name"]}>
+        <div className={styles["user-icon"]}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-user"
+            width="24"
+            height="20"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="#ffffff"
+            fill="#ffffff"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <circle cx="12" cy="7" r="4" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+          </svg>
+        </div>
+        <span className={styles["username"]}>Omkar</span>
+      </div>
+
+      {isMenuOpen ? (
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-chevron-up"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="#ffffff"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <polyline points="6 15 12 9 18 15" />
+          </svg>
+        </div>
+      ) : (
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-chevron-down"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="#ffffff"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      )}
+    </div>
+  );
+
+  const dropDownMenu = (
+    <div className={styles["drop-down-menu"]}>
+      <Link to="/wishlist">
+        <div className={styles["option"]}>Profile</div>
+      </Link>
+      <Link to="/wishlist">
+        <div className={styles["option"]}>Orders</div>
+      </Link>
+      <Link to="/wishlist">
+        <div className={styles["option"]}>Wishlist</div>
+      </Link>
+      <Link to="/address">
+        <div className={styles["option"]}>Address</div>
+      </Link>
+      <Link to="/">
+        <div className={styles["option"]}>Logout</div>
+      </Link>
+    </div>
+  );
 
   return (
     <header className={styles["header"]}>
@@ -66,7 +162,7 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 
         <div className={styles["brand-md"]}>
           <Link to="/">
-              <h2 className={styles["brand-name"]}>Kharidari</h2>
+            <h2 className={styles["brand-name"]}>Kharidari</h2>
           </Link>
         </div>
 
@@ -126,7 +222,16 @@ export function Header({ homepage, brandName, title, searchIcon }) {
             </div>
           </Link>
         </div>
-        <div className={styles["login"]}>Login</div>
+        <div>
+          {isUserLogedIn ? (
+            <div className={styles["user-menu-icon"]}>
+              {userAndArrowIcon}
+              {isMenuOpen && dropDownMenu}
+            </div>
+          ) : (
+            <div className={styles["login"]}>Login</div>
+          )}
+        </div>
       </div>
     </header>
   );
