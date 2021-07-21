@@ -1,0 +1,141 @@
+.page {
+  background-color: var(--bg-color);
+  min-height: 100%;
+  padding-bottom: 5rem;
+}
+
+.cart-item-card {
+  background-color: var(--color-white);
+  margin-top: 1rem;
+}
+
+.card-flex-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.product-price {
+  margin: 0.5rem 0;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.price-details {
+  background-color: white;
+  margin-top: 2rem;
+}
+
+.details-card-heading {
+  color: grey;
+  font-weight: 500;
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-lightgrey);
+}
+
+.details-total-wrapper {
+  padding: 1rem;
+}
+
+.details {
+  border-bottom: 1px dotted var(--color-lightgrey);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.total {
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.place-order-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 92%;
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 -5px 5px 0 #ddd9d9;
+}
+
+.total-amount {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.place-order-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 500;
+  padding: 0.5rem 2rem;
+  border-radius: 0.2rem;
+}
+
+.text-green {
+  color: green;
+}
+
+.delivery-address {
+  background-color: var(--color-white);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.address-card {
+  background-color: var(--color-white);
+}
+
+.address-name {
+  font-size: 1.2rem;
+}
+
+.address-details,
+.address-mobileno {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+@media screen and (min-width: 768px) {
+  .orders,
+  .cart-flex-wrapper {
+    width: 50%;
+    margin: 1rem auto;
+  }
+
+  .cart-product-list {
+    background-color: var(--color-white);
+    flex-basis: 60%;
+    margin-top: 2rem;
+  }
+
+  .price-details {
+    flex-basis: 30%;
+  }
+
+  .cart-item-card {
+    /* border-top: 1px solid var(--color-lightgrey); */
+    margin: 0;
+  }
+
+  .details-total-wrapper {
+    padding: 1rem 1.5rem;
+  }
+
+  .row {
+    margin: 1rem 0;
+  }
+
+  .total {
+    font-size: 1.2rem;
+    border-bottom: 1px dotted var(--color-lightgrey);
+    padding: 1rem 0;
+  }
+}
