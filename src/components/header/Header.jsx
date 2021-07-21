@@ -87,7 +87,7 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 
   const dropDownMenu = (
     <div className={styles["drop-down-menu"]}>
-      <Link to="/wishlist">
+      <Link to="/profile">
         <div className={styles["option"]}>Profile</div>
       </Link>
       <Link to="/orders">

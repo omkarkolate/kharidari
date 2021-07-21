@@ -11,7 +11,8 @@ import {
   Payment,
   General,
   Orders,
-  OrderDetails
+  OrderDetails,
+  Profile
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/orderDetails/:orderId" element={<OrderDetails />} />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/successful"
           element={<General message="Order Placed Succesfully" />}
