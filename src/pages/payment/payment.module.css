@@ -1,76 +1,29 @@
+.payment-flex-left {
+	margin-top: 1rem;
+}
+
 .payment-options {
-  background-color: var(--color-white);
-  padding: 1rem 0;
-  margin-top: 1rem;
+	background-color: var(--color-white);
+	padding: 1rem 0;
 }
 
 .option-title {
-  font-weight: 500;
-  margin-left: 1rem;
+	font-weight: 500;
+	margin-left: 1rem;
 }
 
 .option-field {
-  margin: 1rem 0.5rem;
+	margin: 1rem 0.5rem;
 }
 
-.price-details {
-  background-color: white;
-  margin: 2rem 0;
-}
+@media screen and (min-width: 768px) {
+	.payment-flex-wrapper {
+		display: flex;
+		justify-content: space-around;
+	}
 
-.details-card-heading {
-  color: grey;
-  font-weight: 500;
-  padding: 1rem;
-  border-bottom: 1px solid var(--color-lightgrey);
-}
-
-.details-total-wrapper {
-  padding: 1rem;
-}
-
-.details {
-  border-bottom: 1px dotted var(--color-lightgrey);
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  margin: 0.5rem 0;
-}
-
-.total {
-  padding: 0.5rem 0;
-  display: flex;
-  justify-content: space-between;
-  font-weight: 500;
-}
-
-.place-order-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 92%;
-  background-color: var(--color-white);
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 -5px 5px 0 #ddd9d9;
-}
-
-.total-amount {
-  font-weight: 500;
-  font-size: 1.5rem;
-}
-
-.place-order-btn {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  font-weight: 500;
-  padding: 0.5rem 2rem;
-  border-radius: 0.2rem;
-}
-
-.text-green {
-  color: green;
+	.payment-flex-left {
+		flex-basis: 60%;
+		margin: 2rem;
+	}
 }

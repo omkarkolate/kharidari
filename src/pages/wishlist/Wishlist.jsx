@@ -1,17 +1,32 @@
-import { Header, ProductCard } from "../../components/";
+import { Header, ProductCard, ShopNow } from "../../components/";
 import styles from "./wishlist.module.css";
+import { useData } from "../../DataContext";
 
 export function Wishlist() {
-  const products = [];
+	const {
+		state: { wishlist }
+	} = useData();
 
-  for (let index = 0; index < 5; index++) {
-    products.push(<ProductCard key={index} id={index} icon="trash" />);
-  }
+	const products = wishlist.map(({ id, image, name, price, discount }) => (
+		<ProductCard
+			key={id}
+			id={id}
+			icon="trash"
+			image={image}
+			name={name}
+			price={price}
+			discount={discount}
+		/>
+	));
 
-  return (
-    <div>
-      <Header brandName title="My Wishlist" />
-      <div className={styles["product-grid"]}>{products}</div>
-    </div>
-  );
+	return (
+		<div className={styles["wishlist-page"]}>
+			<Header brandName title="My Wishlist" />
+			{wishlist.length > 0 ? (
+				<div className={styles["product-grid"]}>{products}</div>
+			) : (
+				<ShopNow message="Add as you wish" />
+			)}
+		</div>
+	);
 }

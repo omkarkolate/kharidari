@@ -1,103 +1,71 @@
-import { Header } from "../../components/";
+import {
+	Header,
+	ShopNow,
+	ItemCard,
+	PriceDetails,
+	BottomActionBar
+} from "../../components/";
 import styles from "./cart.module.css";
-import { Link } from "react-router-dom";
+import { useData } from "../../DataContext";
+import { useNavigate } from "react-router-dom";
+import { getPricetDetails } from "../utils";
 
 export function Cart() {
-  return (
-    <div className={styles["cart-page"]}>
-      <Header brandName title="My Cart" />
-      <div className={styles["cart-flex-wrapper"]}>
-        <div className={styles["cart-product-list"]}>
-          <div className={styles["cart-item-card"]}>
-            <div className={styles["card-flex-wrapper"]}>
-              <div className={styles["card-left"]}>
-                <div className={styles["product-name"]}>PUMA T-shirt</div>
-                <div className={styles["product-price"]}>₹604</div>
-              </div>
-              <div className={styles["card-right"]}>
-                <div className={styles["product-image"]}>
-                  <img
-                    src={`https://picsum.photos/70/100?random=1`}
-                    alt="product"
-                  />
-                </div>
-                <div className={styles["product-quantity"]}>
-                  <select>
-                    <option value="1">Qty: 1</option>
-                    <option value="2">Qty: 2</option>
-                    <option value="3">Qty: 3</option>
-                    <option value="4">Qty: 4</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className={styles["cart-card-actions"]}>
-              <div className={styles["move-to-wishlist"]}>Move to wishlist</div>
-              <div className={styles["remove"]}>Remove</div>
-            </div>
-          </div>
+	const {
+		state: { cart }
+	} = useData();
 
-          <div className={styles["cart-item-card"]}>
-            <div className={styles["card-flex-wrapper"]}>
-              <div className={styles["card-left"]}>
-                <div className={styles["product-name"]}>PUMA T-shirt</div>
-                <div className={styles["product-price"]}>₹604</div>
-              </div>
-              <div className={styles["card-right"]}>
-                <div className={styles["product-image"]}>
-                  <img
-                    src={`https://picsum.photos/70/100?random=2`}
-                    alt="product"
-                  />
-                </div>
-                <div className={styles["product-quantity"]}>
-                  <select>
-                    <option value="1">Qty: 1</option>
-                    <option value="2">Qty: 2</option>
-                    <option value="3">Qty: 3</option>
-                    <option value="4">Qty: 4</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div className={styles["cart-card-actions"]}>
-              <div className={styles["move-to-wishlist"]}>Move to wishlist</div>
-              <div className={styles["remove"]}>Remove</div>
-            </div>
-          </div>
+	const navigate = useNavigate();
 
-          <div className={styles["place-order-bar"]}>
-            <div className={styles["total-amount"]}>24,998</div>
-            <Link to="/checkout">
-              <div className={styles["place-order-btn"]}>Place Order</div>
-            </Link>
-          </div>
-        </div>
+	function gotoCheckout() {
+		navigate("/checkout");
+	}
 
-        <div className={styles["price-details"]}>
-          <div className={styles["details-card-heading"]}>PRICE DETAILS</div>
-          <div className={styles["details-total-wrapper"]}>
-            <div className={styles["details"]}>
-              <div className={styles["row"]}>
-                <div>Price (3 items)</div>
-                <div>₹31,998</div>
-              </div>
-              <div className={styles["row"]}>
-                <div>Discount</div>
-                <div className={styles["text-green"]}>- ₹3998</div>
-              </div>
-              <div className={styles["row"]}>
-                <div>Delivery Charges</div>
-                <div className={styles["text-green"]}>FREE</div>
-              </div>
-            </div>
-            <div className={styles["total"]}>
-              <div>Total Amount</div>
-              <div>₹23998</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+	const productsInCart = cart.map(
+		({ id, name, price, image, discount, quantity }) => (
+			<ItemCard
+				key={id}
+				id={id}
+				name={name}
+				price={price}
+				image={image}
+				discount={discount}
+				quantity={quantity}
+				path={`/product-detail/${id}`}
+				showActionBtns
+			/>
+		)
+	);
+
+	const { price, discount, deliveryCharges } = cart.reduce(getPricetDetails, {
+		price: 0,
+		discount: 0,
+		deliveryCharges: 0
+	});
+
+	return (
+		<div className={styles["cart-page"]}>
+			<Header brandName title="My Cart" />
+			{cart.length > 0 ? (
+				<div className={styles["cart-flex-wrapper"]}>
+					<div className={styles["cart-product-list"]}>
+						{productsInCart}
+						<BottomActionBar
+							buttonText="Place Order"
+							totalAmount={price - discount + deliveryCharges}
+							callback={gotoCheckout}
+						/>
+					</div>
+					<PriceDetails
+						price={price}
+						discount={discount}
+						deliveryCharges={deliveryCharges}
+						items={cart.length}
+					/>
+				</div>
+			) : (
+				<ShopNow message="Cart is Empty" />
+			)}
+		</div>
+	);
 }

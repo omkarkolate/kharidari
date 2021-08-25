@@ -1,114 +1,124 @@
-import { Header } from "../../components/";
+import {
+	Header,
+	ItemCard,
+	PriceDetails,
+	AddressCard,
+	BottomActionBar
+} from "../../components/";
 import styles from "./checkout.module.css";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useData } from "../../DataContext";
+import { getPricetDetails } from "../utils";
 
 export function Checkout() {
-  return (
-    <div className={styles["checkout-page"]}>
-      <Header brandName title="Order Details" />
+	const {
+		state: { cart, addresses, selectedAddress }
+	} = useData();
 
-      <div className={styles["cart-flex-wrapper"]}>
-        <div className={styles["checkout-flex-left"]}>
-          <div className={styles["delivery-address"]}>
-            <div className={styles["address-card"]}>
-              <div className={styles["address-name"]}>Omkar Kolate</div>
-              <div className={styles["address-details"]}>
-                Mauli, Vanipeth, A/P Amba, Tal - Shahuwadi, Kolhapur District,
-                Maharashtra - 415101
-              </div>
-              <div className={styles["address-mobileno"]}>8888540008</div>
-            </div>
-            <Link to="/address">
-              <div className={styles["change-address-btn"]}>
-                Change or Add Address
-              </div>
-            </Link>
-          </div>
+	const navigate = useNavigate();
+	const productId = useParams();
 
-          <div className={styles["cart-product-list"]}>
-            <div className={styles["cart-item-card"]}>
-              <div className={styles["card-flex-wrapper"]}>
-                <div className={styles["card-left"]}>
-                  <div className={styles["product-name"]}>PUMA T-shirt</div>
-                  <div className={styles["product-price"]}>₹604</div>
-                </div>
-                <div className={styles["card-right"]}>
-                  <div className={styles["product-image"]}>
-                    <img
-                      src={`https://picsum.photos/70/100?random=1`}
-                      alt="product"
-                    />
-                  </div>
-                  <div className={styles["product-quantity"]}>
-                    <select>
-                      <option value="1">Qty: 1</option>
-                      <option value="2">Qty: 2</option>
-                      <option value="3">Qty: 3</option>
-                      <option value="4">Qty: 4</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+	const deliveryAddress = addresses.find(({ id }) => id === selectedAddress);
 
-            <div className={styles["cart-item-card"]}>
-              <div className={styles["card-flex-wrapper"]}>
-                <div className={styles["card-left"]}>
-                  <div className={styles["product-name"]}>PUMA T-shirt</div>
-                  <div className={styles["product-price"]}>₹604</div>
-                </div>
-                <div className={styles["card-right"]}>
-                  <div className={styles["product-image"]}>
-                    <img
-                      src={`https://picsum.photos/70/100?random=2`}
-                      alt="product"
-                    />
-                  </div>
-                  <div className={styles["product-quantity"]}>
-                    <select>
-                      <option value="1">Qty: 1</option>
-                      <option value="2">Qty: 2</option>
-                      <option value="3">Qty: 3</option>
-                      <option value="4">Qty: 4</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
+	let productsInCheckout, priceDetails;
 
-            <div className={styles["place-order-bar"]}>
-              <div className={styles["total-amount"]}>24,998</div>
-              <Link to="/successful">
-                <div className={styles["place-order-btn"]}>CONTINUE</div>
-              </Link>
-            </div>
-          </div>
-        </div>
+	if (productId.id) {
+		const product = cart.find(({ id }) => id === productId.id);
 
-        <div className={styles["price-details"]}>
-          <div className={styles["details-card-heading"]}>PRICE DETAILS</div>
-          <div className={styles["details-total-wrapper"]}>
-            <div className={styles["details"]}>
-              <div className={styles["row"]}>
-                <div>Price (3 items)</div>
-                <div>₹31,998</div>
-              </div>
-              <div className={styles["row"]}>
-                <div>Discount</div>
-                <div className={styles["text-green"]}>- ₹3998</div>
-              </div>
-              <div className={styles["row"]}>
-                <div>Delivery Charges</div>
-                <div className={styles["text-green"]}>FREE</div>
-              </div>
-            </div>
-            <div className={styles["total"]}>
-              <div>Total Amount</div>
-              <div>₹23998</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+		productsInCheckout = <ItemCard {...product} />;
+		priceDetails = getPricetDetails(
+			{
+				price: 0,
+				discount: 0,
+				deliveryCharges: 0
+			},
+			product
+		);
+	} else {
+		productsInCheckout = cart.map((product) => (
+			<ItemCard key={product.id} {...product} />
+		));
+
+		priceDetails = cart.reduce(getPricetDetails, {
+			price: 0,
+			discount: 0,
+			deliveryCharges: 0
+		});
+	}
+
+	function changeOrAddAddress() {
+		if (productId.id) {
+			navigate("/address", {
+				state: { fromCheckout: `/checkout/${productId.id}` }
+			});
+		} else {
+			navigate("/address", {
+				state: { fromCheckout: "/checkout" }
+			});
+		}
+	}
+
+	function gotoPayment() {
+		if (productId.id) {
+			navigate("/payment", {
+				state: {
+					orderDetails: {
+						productId: productId.id,
+						deliveryAddress,
+						priceDetails
+					}
+				}
+			});
+		} else {
+			navigate("/payment", {
+				state: {
+					orderDetails: {
+						deliveryAddress,
+						priceDetails
+					}
+				}
+			});
+		}
+	}
+
+	const totalAmount =
+		priceDetails.price -
+		priceDetails.discount +
+		priceDetails.deliveryCharges;
+
+	return (
+		<div className={styles["checkout-page"]}>
+			<Header brandName title="Order Details" />
+
+			<div className={styles["cart-flex-wrapper"]}>
+				<div className={styles["checkout-flex-left"]}>
+					<div className={styles["delivery-address"]}>
+						{deliveryAddress && (
+							<AddressCard address={deliveryAddress} />
+						)}
+						<div
+							className={styles["change-address-btn"]}
+							onClick={changeOrAddAddress}
+						>
+							Change or Add Address
+						</div>
+					</div>
+
+					<div className={styles["product-list"]}>
+						{productsInCheckout}
+
+						<BottomActionBar
+							buttonText="CONTINUE"
+							totalAmount={totalAmount}
+							callback={gotoPayment}
+						/>
+					</div>
+				</div>
+				<PriceDetails
+					{...priceDetails}
+					items={productId.id ? 1 : cart.length}
+				/>
+			</div>
+		</div>
+	);
 }
