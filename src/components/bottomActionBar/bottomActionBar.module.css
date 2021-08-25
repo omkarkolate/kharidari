@@ -1,0 +1,45 @@
+.bottom-action-bar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 92%;
+	background-color: var(--color-white);
+	display: flex;
+	justify-content: space-between;
+	padding: 0.5rem 1rem;
+	box-shadow: 0 -5px 5px 0 #ddd9d9;
+}
+
+.total-amount {
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+
+.bottom-action-btn {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+	font-weight: 500;
+	padding: 0.5rem 2rem;
+	border-radius: 0.2rem;
+	cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+	.bottom-action-bar {
+		position: relative;
+		width: auto;
+		padding: 1rem;
+		justify-content: flex-end;
+		margin-top: 1rem;
+	}
+
+	.total-amount {
+		display: none;
+	}
+
+	.bottom-action-btn {
+		padding: 1rem 2rem;
+		text-align: center;
+		text-transform: uppercase;
+	}
+}

@@ -1,0 +1,31 @@
+.address-card {
+	background-color: var(--color-white);
+	padding: 1rem;
+	margin: 1rem 0;
+	display: flex;
+}
+
+.address-name {
+	font-size: 1.2rem;
+}
+
+.address-details,
+.address-mobileno {
+	margin-top: 0.5rem;
+	font-size: 0.9rem;
+}
+
+.address-card-options {
+	display: flex;
+	align-self: start;
+	margin-left: auto;
+}
+
+.edit-option {
+	margin-right: 0.5rem;
+}
+
+.edit-option,
+.remove-option {
+	cursor: pointer;
+}

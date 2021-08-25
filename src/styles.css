@@ -1,27 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
 
 :root {
-  --color-theme: #2874f0;
-  --bg-color: #f1f3f6;
-  --color-white: white;
-  --color-primary: #f05632;
-  --color-secondary: #f59e28;
-  --color-lightgrey: lightgrey;
+	--color-theme: #2874f0;
+	--bg-color: #f1f3f6;
+	--color-white: white;
+	--color-primary: #f05632;
+	--color-secondary: #f59e28;
+	--color-lightgrey: lightgrey;
 }
 
 body {
-  margin: 0;
-  height: 100vh;
+	margin: 0;
+	height: 100vh;
 }
 
 .App {
-  font-family: "Roboto", sans-serif;
-  height: 100vh;
-  background-color: var(--bg-color);
+	font-family: "Roboto", sans-serif;
+	height: 100vh;
+	background-color: var(--bg-color);
+	padding-top: 3rem;
 }
 
 a,
 :visited {
-  text-decoration: none;
-  color: initial;
+	text-decoration: none;
+	color: initial;
 }
