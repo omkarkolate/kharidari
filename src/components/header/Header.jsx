@@ -7,7 +7,7 @@ import { useAuth } from "../../AuthContext";
 
 export function Header({ homepage, brandName, title, searchIcon }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const { isUserLogedin, setIsUserLogedin } = useAuth();
+	const { isUserLogedin, logout } = useAuth();
 	const {
 		state: { cart }
 	} = useData();
@@ -19,11 +19,10 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 		history.back();
 	}
 
-	const logoutHandler = () => {
-		setIsUserLogedin(false);
-		localStorage.removeItem("login");
+	function logoutHandler() {
+		logout();
 		navigate("/");
-	};
+	}
 
 	function handleDropDownMenu() {
 		if (!isMenuOpen) {

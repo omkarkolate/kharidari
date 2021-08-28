@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "./login.module.css";
 import { useAuth } from "../../AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fakeAuthApi } from "../../fakeAuthApi";
 
 export function Login() {
 	const [formData, setFormData] = useState({
@@ -10,7 +9,7 @@ export function Login() {
 		password: ""
 	});
 
-	const { setIsUserLogedin } = useAuth();
+	const { loginWithCredintials } = useAuth();
 	const { state } = useLocation();
 	const navigate = useNavigate();
 
@@ -19,24 +18,9 @@ export function Login() {
 		setFormData({ ...formData, [id]: value });
 	}
 
-	const loginWithCredintials = async (emailId, password) => {
-		try {
-			const response = await fakeAuthApi(emailId, password);
-			if (response.success) {
-				setIsUserLogedin(true);
-				localStorage.setItem(
-					"login",
-					JSON.stringify({ isUserLogedin: true })
-				);
-				navigate(state?.from ? state.from : "/");
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	function loginHandler() {
-		loginWithCredintials(formData.emailId, formData.password);
+	async function loginHandler() {
+		await loginWithCredintials(formData.emailId, formData.password);
+		navigate(state?.from ? state.from : "/");
 	}
 
 	return (
