@@ -1,5 +1,5 @@
 import { Route, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./authProvider/AuthProvider";
 
 export function PrivateRoute({ path, ...props }) {
 	const { isUserLogedin } = useAuth();

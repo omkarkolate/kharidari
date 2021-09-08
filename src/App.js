@@ -2,7 +2,7 @@ import "./styles.css";
 import {
 	Home,
 	Category,
-	ProductDetail,
+	ProductDetails,
 	Cart,
 	Wishlist,
 	Address,
@@ -24,7 +24,10 @@ export default function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/category/:category" element={<Category />} />
-				<Route path="/product-detail/:id" element={<ProductDetail />} />
+				<Route
+					path="/product-details/:id"
+					element={<ProductDetails />}
+				/>
 				<Route path="/cart" element={<Cart />} />
 				<PrivateRoute path="/wishlist" element={<Wishlist />} />
 				<PrivateRoute path="/address" element={<Address />} />

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { fakeAuthApi } from "./fakeAuthApi";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -17,8 +17,16 @@ export function AuthProvider({ children }) {
 
 	const loginWithCredintials = async (emailId, password) => {
 		try {
-			const response = await fakeAuthApi(emailId, password);
-			if (response.success) {
+			const response = await axios.post(
+				"https://kharidari.omkarkolate.repl.co/login",
+				{
+					emailId: "omkar@email.com",
+					password: "12345"
+				}
+			);
+			console.log(response);
+
+			if (response.data.success) {
 				setIsUserLogedin(true);
 				localStorage.setItem(
 					"login",

@@ -1,10 +1,10 @@
 import { Header } from "../../components/";
-import styles from "./productDetail.module.css";
+import styles from "./productDetails.module.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useData } from "../../DataContext";
-import { useAuth } from "../../AuthContext";
+import { useData } from "../../dataProvider/DataProvider";
+import { useAuth } from "../../authProvider/AuthProvider";
 
-export function ProductDetail() {
+export function ProductDetails() {
 	const { state, dispatch } = useData();
 	const { isUserLogedin } = useAuth();
 	const productId = useParams();
