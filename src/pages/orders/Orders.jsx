@@ -1,6 +1,6 @@
 import { Header, ItemCard } from "../../components/";
 import styles from "./orders.module.css";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function Orders() {
 	const {

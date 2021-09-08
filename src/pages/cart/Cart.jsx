@@ -6,7 +6,7 @@ import {
 	BottomActionBar
 } from "../../components/";
 import styles from "./cart.module.css";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import { useNavigate } from "react-router-dom";
 import { getPricetDetails } from "../utils";
 
@@ -22,16 +22,11 @@ export function Cart() {
 	}
 
 	const productsInCart = cart.map(
-		({ id, name, price, image, discount, quantity }) => (
+		(product) => (
 			<ItemCard
-				key={id}
-				id={id}
-				name={name}
-				price={price}
-				image={image}
-				discount={discount}
-				quantity={quantity}
-				path={`/product-detail/${id}`}
+				key={product.id}
+				{...product}
+				path={`/product-details/${product.id}`}
 				showActionBtns
 			/>
 		)

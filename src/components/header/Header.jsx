@@ -1,9 +1,9 @@
 import styles from "./header.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { useState } from "react";
-import { useData } from "../../DataContext";
-import { useAuth } from "../../AuthContext";
+import { useData } from "../../dataProvider/DataProvider";
+import { useAuth } from "../../authProvider/AuthProvider";
 
 export function Header({ homepage, brandName, title, searchIcon }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,6 +14,7 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 
 	const history = createBrowserHistory();
 	const navigate = useNavigate();
+	const {pathname} = useLocation();
 
 	function goBack() {
 		history.back();
@@ -238,7 +239,7 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 							{isMenuOpen && dropDownMenu}
 						</div>
 					) : (
-						<Link to="/login">
+						<Link to="/login" state={{from: pathname}}>
 							<div className={styles["login"]}>Login</div>
 						</Link>
 					)}

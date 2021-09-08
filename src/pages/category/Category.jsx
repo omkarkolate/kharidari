@@ -1,5 +1,5 @@
 import { Header, SortAndFilter, ProductCard } from "../../components/";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import styles from "./category.module.css";
 
 export function Category() {

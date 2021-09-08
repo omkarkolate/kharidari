@@ -7,7 +7,7 @@ import {
 } from "../../components/";
 import styles from "./checkout.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import { getPricetDetails } from "../utils";
 
 export function Checkout() {

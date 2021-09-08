@@ -1,5 +1,5 @@
 import styles from "./itemCard.module.css";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import { useNavigate } from "react-router-dom";
 
 export function ItemCard({

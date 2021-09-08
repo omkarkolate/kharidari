@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./sortAndFilter.module.css";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function SortAndFilter() {
 	const [isShowMenu, setIsShowMenu] = useState(false);

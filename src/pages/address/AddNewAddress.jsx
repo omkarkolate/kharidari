@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Header } from "../../components/";
 import styles from "./address.module.css";
 import uuid from "react-uuid";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export function AddNewAddress() {

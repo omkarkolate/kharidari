@@ -1,7 +1,7 @@
 import styles from "./productCard.module.css";
 import { Link } from "react-router-dom";
-import { useData } from "../../DataContext";
-import { useAuth } from "../../AuthContext";
+import { useData } from "../../dataProvider/DataProvider";
+import { useAuth } from "../../authProvider/AuthProvider";
 
 export function ProductCard({ id, image, name, price, icon, discount }) {
 	const {
@@ -80,7 +80,7 @@ export function ProductCard({ id, image, name, price, icon, discount }) {
 
 	return (
 		<div className={styles["product-card"]}>
-			<Link to={`/product-detail/${id}`}>
+			<Link to={`/product-details/${id}`}>
 				<div className={styles["product-img"]}>
 					<img src={image} alt={name} />
 				</div>

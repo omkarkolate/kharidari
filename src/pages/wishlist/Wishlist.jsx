@@ -1,6 +1,6 @@
 import { Header, ProductCard, ShopNow } from "../../components/";
 import styles from "./wishlist.module.css";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function Wishlist() {
 	const {

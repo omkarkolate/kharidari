@@ -1,7 +1,7 @@
 import { Header, PriceDetails, BottomActionBar } from "../../components/";
 import styles from "./payment.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import uuid from "react-uuid";
 import { getPricetDetails } from "../utils";
 

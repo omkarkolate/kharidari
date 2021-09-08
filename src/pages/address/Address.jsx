@@ -1,7 +1,7 @@
 import { Header, AddressCard } from "../../components/";
 import styles from "./address.module.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function Address() {
 	const {

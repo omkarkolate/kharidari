@@ -1,4 +1,4 @@
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import styles from "./addressCard.module.css";
 import { useNavigate } from "react-router-dom";
 

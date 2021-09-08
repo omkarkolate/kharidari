@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Header, ItemCard, AddressCard, PriceDetails } from "../../components/";
-import { useData } from "../../DataContext";
+import { useData } from "../../dataProvider/DataProvider";
 import styles from "./orders.module.css";
 
 export function OrderDetails() {
