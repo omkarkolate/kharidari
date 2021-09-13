@@ -1,8 +1,11 @@
 export { Header } from "./header/Header";
 export { SortAndFilter } from "./sortAndFilter/SortAndFilter";
 export { ProductCard } from "./productCard/ProductCard";
-export { ShopNow } from "./shopNow/ShpoNow";
+export { MessageCard } from "./messageCard/MessageCard";
 export { ItemCard } from "./itemCard/ItemCard";
 export { PriceDetails } from "./priceDetails/PriceDetails";
 export { AddressCard } from "./addressCard/AddressCard";
 export { BottomActionBar } from "./bottomActionBar/BottomActionBar";
+export { HeartIconBtn } from "./iconBtns/HeartIconBtn";
+export { TrashIconBtn } from "./iconBtns/TrashIconBtn";
+export { ProductDetailsActionBar } from "./productDetailsActionBar/ProductDetailsActionBar";

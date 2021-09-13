@@ -8,13 +8,13 @@ import App from "./App";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
 	<StrictMode>
-		<AuthProvider>
-			<DataProvider>
+		<DataProvider>
+			<AuthProvider>
 				<Router>
 					<App />
 				</Router>
-			</DataProvider>
-		</AuthProvider>
+			</AuthProvider>
+		</DataProvider>
 	</StrictMode>,
 	rootElement
 );

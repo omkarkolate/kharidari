@@ -1,10 +1,10 @@
 import { Header, MessageCard } from "../../components/";
 
-export function Successful() {
+export function NoMatch() {
 	return (
 		<div>
 			<Header />
-				<MessageCard message={"Order Placed Succesfully"} />
+			<MessageCard message={"Error: 404, You are at wrong place."} />
 		</div>
 	);
 }

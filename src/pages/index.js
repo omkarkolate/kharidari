@@ -12,3 +12,4 @@ export { Orders } from "./orders/Orders";
 export { OrderDetails } from "./orders/OrderDetails";
 export { Profile } from "./profile/Profile";
 export { Login } from "./login/Login";
+export { NoMatch } from "./noMatch/NoMatch";

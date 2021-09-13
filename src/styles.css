@@ -26,3 +26,19 @@ a,
 	text-decoration: none;
 	color: initial;
 }
+
+.loading,
+.error {
+	text-align: center;
+	font-size: 1.2rem;
+	font-weight: 500;
+	margin-top: 1rem;
+}
+
+.loading {
+	color: var(--color-theme);
+}
+
+.error {
+	color: red;
+}
