@@ -1,53 +1,78 @@
 import { useEffect, useState } from "react";
 import { Header } from "../../components/";
 import styles from "./address.module.css";
-import uuid from "react-uuid";
 import { useData } from "../../dataProvider/DataProvider";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 export function AddNewAddress() {
 	const [formData, setFormData] = useState({
-		id: "",
-		fullName: "",
-		mobile: "",
+		name: "",
+		mobileNumber: "",
 		pincode: "",
 		state: "",
 		city: "",
 		house: "",
-		roadAndArea: ""
+		areaAndRoad: ""
 	});
 
 	const {
-		state: { addresses },
+		state: { userId, addresses },
 		dispatch
 	} = useData();
 	const navigate = useNavigate();
 	const { state: routerState } = useLocation();
-	const addressId = useParams();
+	const { addressId } = useParams();
 
 	useEffect(() => {
-		if (addressId.id) {
-			const address = addresses.find(({ id }) => id === addressId.id);
+		if (addressId) {
+			const address = addresses.find(({ _id }) => _id === addressId);
 			setFormData(address);
 		}
-	}, [addressId.id, addresses]);
+	}, [addressId, addresses]);
 
 	function updateFormData(event) {
 		const { id, value } = event.target;
 		setFormData({ ...formData, [id]: value });
 	}
 
-	function addOrUpdateAddress() {
-		if (addressId.id) {
-			dispatch({
-				type: "UPDATE_ADDRESS",
-				payload: formData
-			});
+	async function addOrUpdateAddress() {
+		if (addressId) {
+			try {
+				const { data } = await axios.put(
+					`https://kharidari.omkarkolate.repl.co/addresses/${userId}/${addressId}`,
+					formData
+				);
+				if (data.success) {
+					await dispatch({
+						type: "UPDATE_ADDRESS",
+						payload: data.address
+					});
+				}
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.messsage, data.error);
+			}
 		} else {
-			dispatch({
-				type: "ADD_ADDRESS",
-				payload: { ...formData, id: uuid() }
-			});
+			try {
+				const { data } = await axios.post(
+					`https://kharidari.omkarkolate.repl.co/addresses/${userId}`,
+					formData
+				);
+				if (data.success) {
+					await dispatch({
+						type: "ADD_ADDRESS",
+						payload: data.address
+					});
+				}
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.messsage, data.error);
+			}
 		}
 
 		if (routerState?.fromCheckout) {
@@ -64,28 +89,28 @@ export function AddNewAddress() {
 			<Header title="Add New Address" />
 			<div className={styles["address-form"]}>
 				<div className={styles["input-field"]}>
-					<label className={styles["label"]} htmlFor="fullName">
+					<label className={styles["label"]} htmlFor="name">
 						Name*
 					</label>
 					<input
 						type="text"
 						className={styles["text-input"]}
 						placeholder="Full Name*"
-						id="fullName"
-						value={formData.fullName}
+						id="name"
+						value={formData.name}
 						onChange={updateFormData}
 					/>
 				</div>
 				<div className={styles["input-field"]}>
-					<label className={styles["label"]} htmlFor="mobile">
+					<label className={styles["label"]} htmlFor="mobileNumber">
 						Mobile Number*
 					</label>
 					<input
 						type="text"
 						className={styles["text-input"]}
 						placeholder="Mobile Number*"
-						id="mobile"
-						value={formData.mobile}
+						id="mobileNumber"
+						value={formData.mobileNumber}
 						onChange={updateFormData}
 					/>
 				</div>
@@ -149,8 +174,8 @@ export function AddNewAddress() {
 						type="text"
 						className={styles["text-input"]}
 						placeholder="Road Name, Area, Colony*"
-						id="roadAndArea"
-						value={formData.roadAndArea}
+						id="areaAndRoad"
+						value={formData.areaAndRoad}
 						onChange={updateFormData}
 					/>
 				</div>

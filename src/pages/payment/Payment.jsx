@@ -2,12 +2,12 @@ import { Header, PriceDetails, BottomActionBar } from "../../components/";
 import styles from "./payment.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useData } from "../../dataProvider/DataProvider";
-import uuid from "react-uuid";
 import { getPricetDetails } from "../utils";
+import axios from "axios";
 
 export function Payment() {
 	const {
-		state: { cart },
+		state: { userId, cart },
 		dispatch
 	} = useData();
 
@@ -21,52 +21,71 @@ export function Payment() {
 
 	const navigate = useNavigate();
 
-	function addToOrders() {
+	async function addToOrders() {
 		if (productId) {
-			dispatch({
-				type: "ADD_TO_ORDERS",
-				payload: [
+			const { quantity } = cart.find(({ _id }) => _id === productId);
+			try {
+				const { data } = await axios.post(
+					`https://kharidari.omkarkolate.repl.co/orders/${userId}`,
 					{
-						id: uuid(),
-						productId,
-						deliveryAddress,
-						priceDetails
+						product: productId,
+						quantity,
+						address: deliveryAddress,
+						...priceDetails
 					}
-				]
-			});
-
-			dispatch({
-				type: "REMOVE_FROM_CART",
-				payload: productId
-			});
+				);
+				if (data.success) {
+					await dispatch({
+						type: "REMOVE_FROM_CART",
+						payload: productId
+					});
+				}
+				navigate("/successful");
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.messsage, data.error);
+			}
 		} else {
-			const orders = cart.map((product) => ({
-				id: uuid(),
-				productId: product.id,
-				quantity: product.quantity,
-				deliveryAddress,
-				priceDetails: getPricetDetails(
+			const newOrders = cart.map(({ product, quantity }) => {
+				const priceDetails = getPricetDetails(
 					{
 						price: 0,
 						discount: 0,
 						deliveryCharges: 0
 					},
-					product
-				)
-			}));
-
-			dispatch({
-				type: "ADD_TO_ORDERS",
-				payload: orders
+					{ product, quantity }
+				);
+				return {
+					product: product._id,
+					quantity,
+					address: deliveryAddress,
+					...priceDetails
+				};
 			});
 
-			dispatch({
-				type: "REMOVE_ALL_FROM_CART",
-				payload: []
-			});
+			try {
+				const {
+					data
+				} = await axios.post(
+					`https://kharidari.omkarkolate.repl.co/orders/multiple/${userId}`,
+					{ newOrders }
+				);
+				if (data.success) {
+					await dispatch({
+						type: "REMOVE_ALL_FROM_CART",
+						payload: []
+					});
+				}
+				navigate("/successful");
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.messsage, data.error);
+			}
 		}
-
-		navigate("/successful");
 	}
 
 	const totalAmount =

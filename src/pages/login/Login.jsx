@@ -2,13 +2,16 @@ import { useState } from "react";
 import styles from "./login.module.css";
 import { useAuth } from "../../authProvider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useLoader } from "../../customHooks/useLoader";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function Login() {
 	const [formData, setFormData] = useState({
 		emailId: "",
 		password: ""
 	});
-
+	const { isLoaded, setIsLoaded, error, setError } = useLoader();
+	const { dispatch } = useData();
 	const { loginWithCredintials } = useAuth();
 	const { state } = useLocation();
 	const navigate = useNavigate();
@@ -19,8 +22,20 @@ export function Login() {
 	}
 
 	async function loginHandler() {
-		await loginWithCredintials(formData.emailId, formData.password);
-		navigate(state?.from ? state.from : "/");
+		setIsLoaded(true);
+		const data = await loginWithCredintials(
+			formData.emailId,
+			formData.password
+		);
+
+		if (data.success) {
+			setIsLoaded(false);
+			await dispatch({ type: "SAVE_USER", payload: { ...data.user } });
+			navigate(state?.from ? state.from : "/");
+		} else {
+			setIsLoaded(false);
+			setError(data.error);
+		}
 	}
 
 	return (
@@ -57,6 +72,8 @@ export function Login() {
 					<div className={styles["login-btn"]} onClick={loginHandler}>
 						Login
 					</div>
+					<div className="loading">{isLoaded && "Loading..."}</div>
+					<div className="error">{error}</div>
 				</form>
 			</div>
 		</div>

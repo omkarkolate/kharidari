@@ -1,6 +1,6 @@
 import {
 	Header,
-	ShopNow,
+	MessageCard,
 	ItemCard,
 	PriceDetails,
 	BottomActionBar
@@ -21,16 +21,16 @@ export function Cart() {
 		navigate("/checkout");
 	}
 
-	const productsInCart = cart.map(
-		(product) => (
-			<ItemCard
-				key={product.id}
-				{...product}
-				path={`/product-details/${product.id}`}
-				showActionBtns
-			/>
-		)
-	);
+	const productsInCart = cart.map(({ product, quantity }) => (
+		<ItemCard
+			key={product._id}
+			id={product._id}
+			quantity={quantity}
+			{...product}
+			path={`/product-details/${product._id}`}
+			showActionBtns
+		/>
+	));
 
 	const { price, discount, deliveryCharges } = cart.reduce(getPricetDetails, {
 		price: 0,
@@ -59,7 +59,7 @@ export function Cart() {
 					/>
 				</div>
 			) : (
-				<ShopNow message="Cart is Empty" />
+				<MessageCard message="Cart is Empty" />
 			)}
 		</div>
 	);

@@ -1,37 +1,79 @@
+import { useEffect, useState } from "react";
 import { Header, ItemCard } from "../../components/";
 import styles from "./orders.module.css";
+import { useLoader } from "../../customHooks/useLoader";
+import axios from "axios";
 import { useData } from "../../dataProvider/DataProvider";
 
 export function Orders() {
 	const {
-		state: { products, orders }
+		state: { userId }
 	} = useData();
+	const [orders, setOrders] = useState([]);
+	const { isLoaded, setIsLoaded, error, setError } = useLoader();
 
-	const ordersList = orders.map(({ id, productId, priceDetails }) => {
-		const product = products.find(({ id }) => id === productId);
-		const price =
-			priceDetails.price -
-			priceDetails.discount +
-			priceDetails.deliveryCharges;
+	useEffect(() => {
+		(async function () {
+			try {
+				const { data } = await axios.get(
+					`https://kharidari.omkarkolate.repl.co/orders/${userId}`
+				);
+				if (data.success) {
+					setOrders(data.orders);
+				}
+				setIsLoaded(true);
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.message, data.error);
+				setError(`${data.message}. ${data.error}`);
+				setIsLoaded(true);
+			}
+		})();
+	}, [userId, setIsLoaded, setError]);
+
+	if (error) {
+		return (
+			<div>
+				<Header brandName title="My Orders" />
+				<div className="error">
+					Error: Something went wrong. :( {error}
+				</div>
+			</div>
+		);
+	} else if (!isLoaded) {
+		return (
+			<div>
+				<Header brandName title="My Orders" />
+				<div className="loading">Loading...</div>
+			</div>
+		);
+	} else {
+		const ordersList = orders.map(
+			({ _id, product, price, discount, deliveryCharges }) => {
+				const finalPrice = price - discount + deliveryCharges;
+
+				return (
+					<ItemCard
+						key={_id}
+						id={_id}
+						name={product.name}
+						price={finalPrice}
+						image={product.image}
+						path={`/order-details/${_id}`}
+					/>
+				);
+			}
+		);
 
 		return (
-			<ItemCard
-				key={id}
-				id={id}
-				name={product.name}
-				price={price}
-				image={product.image}
-				path={`/order-details/${id}`}
-			/>
-		);
-	});
-
-	return (
-		<div>
-			<Header brandName title="My Orders" />
-			<div className={styles["orders"]}>
-				<div className={styles["order-list"]}>{ordersList}</div>
+			<div>
+				<Header brandName title="My Orders" />
+				<div className={styles["orders"]}>
+					<div className={styles["order-list"]}>{ordersList}</div>
+				</div>
 			</div>
-		</div>
-	);
+		);
+	}
 }

@@ -14,42 +14,13 @@ export function Checkout() {
 	const {
 		state: { cart, addresses, selectedAddress }
 	} = useData();
-
 	const navigate = useNavigate();
-	const productId = useParams();
-
-	const deliveryAddress = addresses.find(({ id }) => id === selectedAddress);
-
-	let productsInCheckout, priceDetails;
-
-	if (productId.id) {
-		const product = cart.find(({ id }) => id === productId.id);
-
-		productsInCheckout = <ItemCard {...product} />;
-		priceDetails = getPricetDetails(
-			{
-				price: 0,
-				discount: 0,
-				deliveryCharges: 0
-			},
-			product
-		);
-	} else {
-		productsInCheckout = cart.map((product) => (
-			<ItemCard key={product.id} {...product} />
-		));
-
-		priceDetails = cart.reduce(getPricetDetails, {
-			price: 0,
-			discount: 0,
-			deliveryCharges: 0
-		});
-	}
+	const { productId } = useParams();
 
 	function changeOrAddAddress() {
-		if (productId.id) {
+		if (productId) {
 			navigate("/address", {
-				state: { fromCheckout: `/checkout/${productId.id}` }
+				state: { fromCheckout: `/checkout/${productId}` }
 			});
 		} else {
 			navigate("/address", {
@@ -58,12 +29,12 @@ export function Checkout() {
 		}
 	}
 
-	function gotoPayment() {
-		if (productId.id) {
+	function gotoPayment(deliveryAddress, priceDetails) {
+		if (productId) {
 			navigate("/payment", {
 				state: {
 					orderDetails: {
-						productId: productId.id,
+						productId,
 						deliveryAddress,
 						priceDetails
 					}
@@ -79,6 +50,43 @@ export function Checkout() {
 				}
 			});
 		}
+	}
+
+	const deliveryAddress = addresses.find(
+		({ _id }) => _id === selectedAddress
+	);
+
+	let productsInCheckout, priceDetails;
+
+	if (productId) {
+		const { product, quantity } = cart.find(({ _id }) => _id === productId);
+
+		productsInCheckout = (
+			<ItemCard id={product._id} quantity={quantity} {...product} />
+		);
+		priceDetails = getPricetDetails(
+			{
+				price: 0,
+				discount: 0,
+				deliveryCharges: 0
+			},
+			{ product, quantity }
+		);
+	} else {
+		productsInCheckout = cart.map(({ product, quantity }) => (
+			<ItemCard
+				key={product._id}
+				id={product._id}
+				quantity={quantity}
+				{...product}
+			/>
+		));
+
+		priceDetails = cart.reduce(getPricetDetails, {
+			price: 0,
+			discount: 0,
+			deliveryCharges: 0
+		});
 	}
 
 	const totalAmount =
@@ -110,13 +118,15 @@ export function Checkout() {
 						<BottomActionBar
 							buttonText="CONTINUE"
 							totalAmount={totalAmount}
-							callback={gotoPayment}
+							callback={() =>
+								gotoPayment(deliveryAddress, priceDetails)
+							}
 						/>
 					</div>
 				</div>
 				<PriceDetails
 					{...priceDetails}
-					items={productId.id ? 1 : cart.length}
+					items={productId ? 1 : cart.length}
 				/>
 			</div>
 		</div>

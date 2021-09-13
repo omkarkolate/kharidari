@@ -23,9 +23,9 @@ export function Address() {
 
 	const addressList = addresses.map((address) => (
 		<AddressCard
-			key={address.id}
+			key={address._id}
 			address={address}
-			selected={address.id === selectedAddress}
+			selected={address._id === selectedAddress}
 			showOptions
 		/>
 	));

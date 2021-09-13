@@ -9,12 +9,12 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { isUserLogedin, logout } = useAuth();
 	const {
-		state: { cart }
+		state: { cart, firstName }
 	} = useData();
 
 	const history = createBrowserHistory();
 	const navigate = useNavigate();
-	const {pathname} = useLocation();
+	const { pathname } = useLocation();
 
 	function goBack() {
 		history.back();
@@ -57,7 +57,7 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 						<path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
 					</svg>
 				</div>
-				<span className={styles["username"]}>Omkar</span>
+				<span className={styles["username"]}>{firstName}</span>
 			</div>
 
 			{isMenuOpen ? (
@@ -239,7 +239,7 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 							{isMenuOpen && dropDownMenu}
 						</div>
 					) : (
-						<Link to="/login" state={{from: pathname}}>
+						<Link to="/login" state={{ from: pathname }}>
 							<div className={styles["login"]}>Login</div>
 						</Link>
 					)}

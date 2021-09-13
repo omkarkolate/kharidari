@@ -1,29 +1,57 @@
 import { useData } from "../../dataProvider/DataProvider";
 import styles from "./addressCard.module.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function AddressCard({ address, selected, showOptions }) {
-	const { dispatch } = useData();
+	const {
+		state: { userId },
+		dispatch
+	} = useData();
 	const navigate = useNavigate();
 
-	const addressDetails = `${address.house}, ${address.roadAndArea}, ${address.city}, ${address.state} - ${address.pincode}`;
+	const addressDetails = `${address.house}, ${address.areaAndRoad}, ${address.city}, ${address.state} - ${address.pincode}`;
 
-	function selectAddress(id) {
-		dispatch({
-			type: "SELECT_ADDRESS",
-			payload: id
-		});
+	async function selectAddress() {
+		try {
+			const { data } = await axios.post(
+				`https://kharidari.omkarkolate.repl.co/addresses/selectAddress/${userId}/${address._id}`
+			);
+			if (data.success) {
+				await dispatch({
+					type: "SELECT_ADDRESS",
+					payload: data.selectedAddress
+				});
+			}
+		} catch (error) {
+			const {
+				response: { data }
+			} = error;
+			console.log(data.message, data.error);
+		}
 	}
 
-	function removeAddress(id) {
-		dispatch({
-			type: "REMOVE_ADDRESS",
-			payload: id
-		});
+	async function removeAddress() {
+		try {
+			const { data } = await axios.delete(
+				`https://kharidari.omkarkolate.repl.co/addresses/${userId}/${address._id}`
+			);
+			if (data.success) {
+				await dispatch({
+					type: "REMOVE_ADDRESS",
+					payload: address._id
+				});
+			}
+		} catch (error) {
+			const {
+				response: { data }
+			} = error;
+			console.log(data.message, data.error);
+		}
 	}
 
 	function editAddress(id) {
-		navigate(`/address/edit-address/${address.id}`);
+		navigate(`/address/edit-address/${address._id}`);
 	}
 
 	return (
@@ -33,26 +61,26 @@ export function AddressCard({ address, selected, showOptions }) {
 					<input
 						type="radio"
 						name="SELECTED_ADDRESS"
-						id={address.id}
+						id={address._id}
 						checked={selected}
-						onChange={() => selectAddress(address.id)}
+						onChange={() => selectAddress(address._id)}
 					/>
 				</div>
 			)}
-			<label htmlFor={address.id}>
-				<div className={styles["address-name"]}>{address.fullName}</div>
+			<label htmlFor={address._id}>
+				<div className={styles["address-name"]}>{address.name}</div>
 				<div className={styles["address-details"]}>
 					{addressDetails}
 				</div>
 				<div className={styles["address-mobileno"]}>
-					{address.mobile}
+					{address.mobileNumber}
 				</div>
 			</label>
 			{showOptions && (
 				<div className={styles["address-card-options"]}>
 					<div
 						className={styles["edit-option"]}
-						onClick={() => editAddress(address.id)}
+						onClick={() => editAddress(address._id)}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +102,7 @@ export function AddressCard({ address, selected, showOptions }) {
 					</div>
 					<div
 						className={styles["remove-option"]}
-						onClick={() => removeAddress(address.id)}
+						onClick={() => removeAddress(address._id)}
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

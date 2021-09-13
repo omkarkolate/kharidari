@@ -1,4 +1,4 @@
-import { Header, ProductCard, ShopNow } from "../../components/";
+import { Header, ProductCard, MessageCard } from "../../components/";
 import styles from "./wishlist.module.css";
 import { useData } from "../../dataProvider/DataProvider";
 
@@ -7,15 +7,12 @@ export function Wishlist() {
 		state: { wishlist }
 	} = useData();
 
-	const products = wishlist.map(({ id, image, name, price, discount }) => (
+	const products = wishlist.map((product) => (
 		<ProductCard
-			key={id}
-			id={id}
+			key={product._id}
+			productId={product._id}
 			icon="trash"
-			image={image}
-			name={name}
-			price={price}
-			discount={discount}
+			{...product}
 		/>
 	));
 
@@ -25,7 +22,7 @@ export function Wishlist() {
 			{wishlist.length > 0 ? (
 				<div className={styles["product-grid"]}>{products}</div>
 			) : (
-				<ShopNow message="Add as you wish" />
+				<MessageCard message="Add as you wish" />
 			)}
 		</div>
 	);

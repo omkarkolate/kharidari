@@ -1,6 +1,9 @@
 import styles from "./itemCard.module.css";
 import { useData } from "../../dataProvider/DataProvider";
+import { useAuth } from "../../authProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { addOrRemoveFromWishlist } from "../utils";
 
 export function ItemCard({
 	id,
@@ -13,38 +16,79 @@ export function ItemCard({
 	path
 }) {
 	const {
-		state: { wishlist },
+		state: { wishlist, userId },
 		dispatch
 	} = useData();
+	const { isUserLogedin } = useAuth();
 
 	const navigate = useNavigate();
 
-	const inWishlist = wishlist.find((product) => product.id === id);
+	const inWishlist = wishlist.find((product) => product._id === id);
 
 	const discountedPrice = discount
 		? Math.round(price - (discount * price) / 100)
 		: price;
 
-	function quantityUpadate(id, quantity) {
-		dispatch({
-			type: "QUANTITY_UPADTE",
-			payload: { id, quantity }
-		});
+	async function quantityUpadate(id, quantity) {
+		if (isUserLogedin) {
+			try {
+				const {
+					data
+				} = await axios.put(
+					`https://kharidari.omkarkolate.repl.co/cart/${userId}/${id}`,
+					{ quantity: quantity }
+				);
+				if (data.success) {
+					await dispatch({
+						type: "QUANTITY_UPADTE",
+						payload: { id, quantity }
+					});
+				}
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.message, data.error);
+			}
+		} else {
+			await dispatch({
+				type: "QUANTITY_UPADTE",
+				payload: { id, quantity }
+			});
+		}
 	}
 
-	function removeFromCart(id) {
-		dispatch({
-			type: "REMOVE_FROM_CART",
-			payload: id
-		});
-	}
-
-	function moveToWishlist(id) {
-		if (!inWishlist) {
-			dispatch({
-				type: "MOVE_TO_WISHLIST",
+	async function removeFromCart(id) {
+		if (isUserLogedin) {
+			try {
+				const { data } = await axios.delete(
+					`https://kharidari.omkarkolate.repl.co/cart/${userId}/${id}`
+				);
+				if (data.success) {
+					await dispatch({
+						type: "REMOVE_FROM_CART",
+						payload: id
+					});
+				}
+			} catch (error) {
+				console.log(error);
+				const {
+					response: { data }
+				} = error;
+				console.log(data.message, data.error);
+			}
+		} else {
+			await dispatch({
+				type: "REMOVE_FROM_CART",
 				payload: id
 			});
+		}
+	}
+
+	async function moveToWishlist(id) {
+		await addOrRemoveFromWishlist(inWishlist, userId, id, dispatch);
+		if (!inWishlist) {
+			await removeFromCart(id);
 		}
 	}
 
@@ -101,14 +145,16 @@ export function ItemCard({
 			</div>
 			{showActionBtns && (
 				<div className={styles["cart-card-actions"]}>
-					<div
-						className={styles["move-to-wishlist"]}
-						onClick={() => moveToWishlist(id)}
-					>
-						{inWishlist
-							? "Already in wishlist"
-							: "Move to wishlist"}
-					</div>
+					{isUserLogedin && (
+						<div
+							className={styles["move-to-wishlist"]}
+							onClick={() => moveToWishlist(id)}
+						>
+							{inWishlist
+								? "Remove from wishlist"
+								: "Move to wishlist"}
+						</div>
+					)}
 					<div
 						className={styles["remove"]}
 						onClick={() => removeFromCart(id)}

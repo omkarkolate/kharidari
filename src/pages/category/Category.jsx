@@ -1,56 +1,87 @@
+import { useEffect } from "react";
 import { Header, SortAndFilter, ProductCard } from "../../components/";
 import { useData } from "../../dataProvider/DataProvider";
+import { getSortedData, getFiltereddata } from "../utils";
+import { useLoader } from "../../customHooks/useLoader";
 import styles from "./category.module.css";
+import axios from "axios";
 
 export function Category() {
-	const { state } = useData();
+	const { isLoaded, setIsLoaded, error, setError } = useLoader();
+	const { state, dispatch } = useData();
 
-	function getSortedData(products, sortBy) {
-		if (sortBy === "PRICE_LOW_TO_HIGH") {
-			return [...products].sort((a, b) => a.price - b.price);
-		}
+	useEffect(() => {
+		(async function () {
+			try {
+				const { data } = await axios.get(
+					"https://kharidari.omkarkolate.repl.co/products"
+				);
+				if (data.success) {
+					await dispatch({
+						type: "ADD_PRODUCTS",
+						payload: data.products
+					});
+					setIsLoaded(true);
+				}
+			} catch (error) {
+				const {
+					response: { data }
+				} = error;
+				console.log(data.message, data.error);
+				setIsLoaded(true);
+				setError(data.message);
+			}
+		})();
 
-		if (sortBy === "PRICE_HIGH_TO_LOW") {
-			return [...products].sort((a, b) => b.price - a.price);
-		}
+		return () => {
+			dispatch({
+				type: "RESET_SORT_FILTER",
+				payload: {
+					showOutOfStock: false,
+					showFreeDeliveryOnly: false,
+					sortBy: null
+				}
+			});
+		};
+	}, [dispatch, setIsLoaded, setError]);
 
-		return [...products];
-	}
+	if (error) {
+		return (
+			<div className={styles["category-page"]}>
+				<Header brandName searchIcon />
+				<div className="error">Error: Somthing Went wrong. :(</div>
+			</div>
+		);
+	} else if (!isLoaded) {
+		return (
+			<div className={styles["category-page"]}>
+				<Header brandName searchIcon />
+				<div className="loading">Loading...</div>
+			</div>
+		);
+	} else {
+		const sortedProducts = getSortedData(state.products, state.sortBy);
+		const filteredProducts = getFiltereddata(
+			sortedProducts,
+			state.showOutOfStock,
+			state.showFreeDeliveryOnly
+		);
 
-	function getFiltereddata(products, outOfStock, freeDeliveryOnly) {
-		return products
-			.filter(({ inStock }) => (outOfStock ? true : inStock))
-			.filter(({ freeDelivery }) =>
-				freeDeliveryOnly ? freeDelivery : true
-			);
-	}
-
-	const sortedProducts = getSortedData(state.products, state.sortBy);
-	const filteredProducts = getFiltereddata(
-		sortedProducts,
-		state.showOutOfStock,
-		state.showFreeDeliveryOnly
-	);
-
-	const products = filteredProducts.map(
-		({ id, image, name, price, discount }) => (
+		const products = filteredProducts.map((product) => (
 			<ProductCard
-				key={id}
-				id={id}
+				key={product._id}
+				productId={product._id}
 				icon="heart"
-				image={image}
-				name={name}
-				price={price}
-				discount={discount}
+				{...product}
 			/>
-		)
-	);
+		));
 
-	return (
-		<div className={styles["category-page"]}>
-			<Header brandName searchIcon />
-			<SortAndFilter />
-			<div className={styles["product-grid"]}>{products}</div>
-		</div>
-	);
+		return (
+			<div className={styles["category-page"]}>
+				<Header brandName searchIcon />
+				<SortAndFilter />
+				<div className={styles["product-grid"]}>{products}</div>
+			</div>
+		);
+	}
 }

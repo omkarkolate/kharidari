@@ -43,17 +43,6 @@
 	margin-left: 0.5rem;
 }
 
-.wishlist-action-btn {
-	position: absolute;
-	right: 0.5rem;
-	top: 0.5rem;
-	cursor: pointer;
-	background-color: var(--color-white);
-	border-radius: 2rem;
-	width: 2rem;
-	height: 2rem;
-}
-
 @media screen and (min-width: 768px) {
 	.product-card:hover {
 		box-shadow: 0px 0px 10px 0 #979494;
