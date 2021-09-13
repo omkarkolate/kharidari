@@ -14,7 +14,8 @@ import {
 	OrderDetails,
 	Profile,
 	Login,
-	NoMatch
+	NoMatch,
+	SignUp
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
@@ -54,6 +55,7 @@ export default function App() {
 				<PrivateRoute path="/profile" element={<Profile />} />
 				<PrivateRoute path="/successful" element={<Successful />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<SignUp />} />
 				<Route path="*" element={<NoMatch />} />
 			</Routes>
 		</div>

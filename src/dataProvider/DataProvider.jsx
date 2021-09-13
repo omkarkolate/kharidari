@@ -18,6 +18,7 @@ export function DataProvider({ children }) {
 		lastName: "",
 		mobileNumber: "",
 		emailId: "",
+		password: "",
 		cart: [],
 		wishlist: [],
 		addresses: [],

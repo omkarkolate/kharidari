@@ -39,8 +39,8 @@ export function AuthProvider({ children }) {
 			const { data } = await axios.post(
 				"https://kharidari.omkarkolate.repl.co/login",
 				{
-					emailId: "omkar@email.com",
-					password: "123"
+					emailId,
+					password
 				}
 			);
 

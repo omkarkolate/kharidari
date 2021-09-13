@@ -6,6 +6,9 @@ export function dataReducer(state, { type, payload }) {
 		case "SAVE_USER":
 			return { ...state, userId: payload._id, ...payload };
 
+		case "UPDATE_USER":
+			return { ...state, ...payload };
+
 		case "SORT":
 			return { ...state, sortBy: payload };
 

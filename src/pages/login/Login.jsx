@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./login.module.css";
 import { useAuth } from "../../authProvider/AuthProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useLoader } from "../../customHooks/useLoader";
 import { useData } from "../../dataProvider/DataProvider";
 
@@ -72,8 +72,14 @@ export function Login() {
 					<div className={styles["login-btn"]} onClick={loginHandler}>
 						Login
 					</div>
-					<div className="loading">{isLoaded && "Loading..."}</div>
+					<div className="loading">{isLoaded && "Loging in..."}</div>
 					<div className="error">{error}</div>
+					<div className="loading">
+						Don't have an account goto{" "}
+						<Link to="/signup">
+							<span className={styles["link"]}>Signup</span>
+						</Link>
+					</div>
 				</form>
 			</div>
 		</div>

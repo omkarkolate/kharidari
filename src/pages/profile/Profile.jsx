@@ -1,19 +1,64 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/";
+import { useLoader } from "../../customHooks/useLoader";
+import { useData } from "../../dataProvider/DataProvider";
 import styles from "./profile.module.css";
 
 export function Profile() {
 	const [formData, setFormData] = useState({
-		firstName: "Omkar",
-		lastName: "Kolate",
-		mobile: "8899458522",
-		emailId: "myemailid@gmail.com",
-		password: "password"
+		firstName: "",
+		lastName: "",
+		mobileNumber: "",
+		emailId: "",
+		password: ""
 	});
+
+	const { state, dispatch } = useData();
+	const { isLoaded, setIsLoaded, error, setError } = useLoader();
+
+	useEffect(() => {
+		setFormData({ ...state });
+	}, [state]);
 
 	function updateFormData(event) {
 		const { id, value } = event.target;
 		setFormData({ ...formData, [id]: value });
+	}
+
+	async function updateUserProfile() {
+		try {
+			setIsLoaded(true);
+			const { data } = await axios.put(
+				`https://kharidari.omkarkolate.repl.co/users/${state.userId}`,
+				formData
+			);
+			if (data.success) {
+				const {
+					firstName,
+					lastName,
+					mobileNumber,
+					emailId
+				} = data.user;
+				await dispatch({
+					type: "UPDATE_USER",
+					payload: {
+						firstName,
+						lastName,
+						mobileNumber,
+						emailId
+					}
+				});
+			}
+			setIsLoaded(false);
+		} catch (error) {
+			const {
+				response: { data }
+			} = error;
+			console.log(data.message, data.error);
+			setError(`${data.message}. ${data.error}`);
+			setIsLoaded(false);
+		}
 	}
 
 	return (
@@ -47,15 +92,15 @@ export function Profile() {
 					/>
 				</div>
 				<div className={styles["input-field"]}>
-					<label className={styles["label"]} htmlFor="mobile">
+					<label className={styles["label"]} htmlFor="mobileNumber">
 						Mobile Number*
 					</label>
 					<input
 						type="text"
 						className={styles["text-input"]}
 						placeholder="Mobile Number*"
-						id="mobile"
-						value={formData.mobile}
+						id="mobileNumber"
+						value={formData.mobileNumber}
 						onChange={updateFormData}
 					/>
 				</div>
@@ -85,7 +130,10 @@ export function Profile() {
 						onChange={updateFormData}
 					/>
 				</div>
-				<div className={styles["save-btn"]}>Save</div>
+				<div className={styles["save-btn"]} onClick={updateUserProfile}>
+					{isLoaded ? "Saving data..." : "Save"}
+				</div>
+				<div className="error">{error}</div>
 			</form>
 		</div>
 	);
