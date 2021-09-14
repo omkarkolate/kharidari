@@ -26,7 +26,7 @@ export function DataProvider({ children }) {
 		orders: []
 	});
 
-	const apiURL = process.env["apiURL"];
+	const apiURL = process.env.apiURL;
 
 	return (
 		<DataContext.Provider value={{ state, dispatch, apiURL }}>
