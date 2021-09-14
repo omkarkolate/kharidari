@@ -25,9 +25,10 @@ export function DataProvider({ children }) {
 		selectedAddress: "",
 		orders: []
 	});
+	const apiURL = "https://kharidariapp.herokuapp.com";
 
 	return (
-		<DataContext.Provider value={{ state, dispatch }}>
+		<DataContext.Provider value={{ state, dispatch, apiURL }}>
 			{children}
 		</DataContext.Provider>
 	);

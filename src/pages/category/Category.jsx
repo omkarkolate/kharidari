@@ -8,14 +8,12 @@ import axios from "axios";
 
 export function Category() {
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
-	const { state, dispatch } = useData();
+	const { state, dispatch, apiURL } = useData();
 
 	useEffect(() => {
 		(async function () {
 			try {
-				const { data } = await axios.get(
-					"https://kharidari.omkarkolate.repl.co/products"
-				);
+				const { data } = await axios.get(`${apiURL}/products`);
 				if (data.success) {
 					await dispatch({
 						type: "ADD_PRODUCTS",
@@ -43,7 +41,7 @@ export function Category() {
 				}
 			});
 		};
-	}, [dispatch, setIsLoaded, setError]);
+	}, [dispatch, setIsLoaded, setError, apiURL]);
 
 	if (error) {
 		return (

@@ -10,7 +10,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
 	const [isUserLogedin, setIsUserLogedin] = useState(false);
-	const { state, dispatch } = useData();
+	const { state, dispatch, apiURL } = useData();
 
 	useEffect(() => {
 		(async function () {
@@ -19,9 +19,12 @@ export function AuthProvider({ children }) {
 				if (!state.userId) {
 					try {
 						const { data } = await axios.get(
-							`https://kharidari.omkarkolate.repl.co/users/${login?.userId}`
+							`${apiURL}/${login?.userId}`
 						);
-						dispatch({ type: "SAVE_USER", payload: data.user });
+						await dispatch({
+							type: "SAVE_USER",
+							payload: data.user
+						});
 					} catch (error) {
 						const {
 							response: { data }
@@ -32,7 +35,7 @@ export function AuthProvider({ children }) {
 				setIsUserLogedin(true);
 			}
 		})();
-	}, [state.userId, dispatch]);
+	}, [state.userId, dispatch, apiURL]);
 
 	const loginWithCredintials = async (emailId, password) => {
 		try {
@@ -74,6 +77,7 @@ export function AuthProvider({ children }) {
 				firstName: "",
 				lastName: "",
 				mobileNumber: "",
+				passwword: "",
 				emailId: "",
 				cart: [],
 				wishlist: [],
