@@ -4,12 +4,13 @@ export async function addOrRemoveFromWishlist(
 	inWishlist,
 	userId,
 	productId,
-	dispatch
+	dispatch,
+	apiURL
 ) {
 	try {
 		if (inWishlist) {
 			const { data } = await axios.delete(
-				`https://kharidari.omkarkolate.repl.co/wishlist/${userId}/${productId}`
+				`${apiURL}/wishlist/${userId}/${productId}`
 			);
 			if (data.success) {
 				dispatch({
@@ -19,7 +20,7 @@ export async function addOrRemoveFromWishlist(
 			}
 		} else {
 			const { data } = await axios.post(
-				`https://kharidari.omkarkolate.repl.co/wishlist/${userId}/${productId}`
+				`${apiURL}/wishlist/${userId}/${productId}`
 			);
 			if (data.success) {
 				dispatch({

@@ -6,18 +6,20 @@ import { useLoader } from "../../customHooks/useLoader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { HeartIconBtn, ProductDetailsActionBar } from "../../components/index";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function ProductDetails() {
 	const { isUserLogedin } = useAuth();
 	const { productId } = useParams();
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
 	const [product, setProduct] = useState(null);
+	const { apiURL } = useData();
 
 	useEffect(() => {
 		(async function () {
 			try {
 				const { data } = await axios.get(
-					`https://kharidari.omkarkolate.repl.co/products/${productId}`
+					`${apiURL}/products/${productId}`
 				);
 				if (data.success) {
 					setProduct(data.product);
@@ -32,7 +34,7 @@ export function ProductDetails() {
 				setError(data.message);
 			}
 		})();
-	}, [setError, setIsLoaded, productId]);
+	}, [setError, setIsLoaded, productId, apiURL]);
 
 	if (error) {
 		return (

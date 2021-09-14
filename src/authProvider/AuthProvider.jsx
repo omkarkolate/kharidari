@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
 				if (!state.userId) {
 					try {
 						const { data } = await axios.get(
-							`${apiURL}/${login?.userId}`
+							`${apiURL}/users/${login?.userId}`
 						);
 						await dispatch({
 							type: "SAVE_USER",
@@ -39,13 +39,10 @@ export function AuthProvider({ children }) {
 
 	const loginWithCredintials = async (emailId, password) => {
 		try {
-			const { data } = await axios.post(
-				"https://kharidari.omkarkolate.repl.co/login",
-				{
-					emailId,
-					password
-				}
-			);
+			const { data } = await axios.post(`${apiURL}/login`, {
+				emailId,
+				password
+			});
 
 			if (data.success) {
 				setIsUserLogedin(true);

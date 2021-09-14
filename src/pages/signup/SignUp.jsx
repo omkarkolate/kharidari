@@ -3,6 +3,7 @@ import styles from "./signup.module.css";
 import { useNavigate } from "react-router-dom";
 import { useLoader } from "../../customHooks/useLoader";
 import axios from "axios";
+import { useData } from "../../dataProvider/DataProvider";
 
 export function SignUp() {
 	const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export function SignUp() {
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
 	const [message, setMessage] = useState(null);
 	const navigate = useNavigate();
+	const { apiURL } = useData();
 
 	function updateFormData(event) {
 		const { id, value } = event.target;
@@ -24,7 +26,7 @@ export function SignUp() {
 		try {
 			setIsLoaded(true);
 			const { data } = await axios.post(
-				"https://kharidari.omkarkolate.repl.co/signup",
+				`${apiURL}/signup`,
 				formData
 			);
 			if (data.success) {

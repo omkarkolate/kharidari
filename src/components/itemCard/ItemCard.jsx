@@ -17,7 +17,7 @@ export function ItemCard({
 }) {
 	const {
 		state: { wishlist, userId },
-		dispatch
+		dispatch, apiURL
 	} = useData();
 	const { isUserLogedin } = useAuth();
 
@@ -35,7 +35,7 @@ export function ItemCard({
 				const {
 					data
 				} = await axios.put(
-					`https://kharidari.omkarkolate.repl.co/cart/${userId}/${id}`,
+					`${apiURL}/cart/${userId}/${id}`,
 					{ quantity: quantity }
 				);
 				if (data.success) {
@@ -62,7 +62,7 @@ export function ItemCard({
 		if (isUserLogedin) {
 			try {
 				const { data } = await axios.delete(
-					`https://kharidari.omkarkolate.repl.co/cart/${userId}/${id}`
+					`${apiURL}/cart/${userId}/${id}`
 				);
 				if (data.success) {
 					await dispatch({

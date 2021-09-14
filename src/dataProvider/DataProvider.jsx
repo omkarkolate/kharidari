@@ -25,7 +25,8 @@ export function DataProvider({ children }) {
 		selectedAddress: "",
 		orders: []
 	});
-	const apiURL = "https://kharidariapp.herokuapp.com";
+
+	const apiURL = process.env["apiURL"];
 
 	return (
 		<DataContext.Provider value={{ state, dispatch, apiURL }}>

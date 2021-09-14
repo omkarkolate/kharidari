@@ -8,7 +8,8 @@ import axios from "axios";
 
 export function OrderDetails() {
 	const {
-		state: { userId }
+		state: { userId },
+		apiURL
 	} = useData();
 	const { orderId } = useParams();
 	const [order, setOrder] = useState([]);
@@ -18,7 +19,7 @@ export function OrderDetails() {
 		(async function () {
 			try {
 				const { data } = await axios.get(
-					`https://kharidari.omkarkolate.repl.co/orders/${userId}/${orderId}`
+					`${apiURL}/orders/${userId}/${orderId}`
 				);
 				if (data.success) {
 					setOrder(data.order);

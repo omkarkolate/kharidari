@@ -8,7 +8,7 @@ import axios from "axios";
 export function ProductDetailsActionBar({ product }) {
 	const {
 		state: { cart, userId },
-		dispatch
+		dispatch, apiURL
 	} = useData();
 	const { isUserLogedin } = useAuth();
 	const navigate = useNavigate();
@@ -31,7 +31,7 @@ export function ProductDetailsActionBar({ product }) {
 				try {
 					setIsLoaded(true);
 					const { data } = await axios.post(
-						`https://kharidari.omkarkolate.repl.co/cart/${userId}/${productId}`
+						`${apiURL}/cart/${userId}/${productId}`
 					);
 					await dispatch({
 						type: "ADD_TO_CART",

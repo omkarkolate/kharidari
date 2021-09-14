@@ -7,7 +7,7 @@ import { useData } from "../../dataProvider/DataProvider";
 
 export function Orders() {
 	const {
-		state: { userId }
+		state: { userId }, apiURL
 	} = useData();
 	const [orders, setOrders] = useState([]);
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
@@ -16,7 +16,7 @@ export function Orders() {
 		(async function () {
 			try {
 				const { data } = await axios.get(
-					`https://kharidari.omkarkolate.repl.co/orders/${userId}`
+					`${apiURL}/orders/${userId}`
 				);
 				if (data.success) {
 					setOrders(data.orders);
@@ -31,7 +31,7 @@ export function Orders() {
 				setIsLoaded(true);
 			}
 		})();
-	}, [userId, setIsLoaded, setError]);
+	}, [userId, setIsLoaded, setError, apiURL]);
 
 	if (error) {
 		return (

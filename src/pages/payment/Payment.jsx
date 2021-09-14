@@ -8,7 +8,7 @@ import axios from "axios";
 export function Payment() {
 	const {
 		state: { userId, cart },
-		dispatch
+		dispatch, apiURL
 	} = useData();
 
 	const { state: routerState } = useLocation();
@@ -26,7 +26,7 @@ export function Payment() {
 			const { quantity } = cart.find(({ _id }) => _id === productId);
 			try {
 				const { data } = await axios.post(
-					`https://kharidari.omkarkolate.repl.co/orders/${userId}`,
+					`${apiURL}/orders/${userId}`,
 					{
 						product: productId,
 						quantity,
@@ -69,7 +69,7 @@ export function Payment() {
 				const {
 					data
 				} = await axios.post(
-					`https://kharidari.omkarkolate.repl.co/orders/multiple/${userId}`,
+					`${apiURL}/orders/multiple/${userId}`,
 					{ newOrders }
 				);
 				if (data.success) {

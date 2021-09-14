@@ -6,7 +6,8 @@ import axios from "axios";
 export function AddressCard({ address, selected, showOptions }) {
 	const {
 		state: { userId },
-		dispatch
+		dispatch,
+		apiURL
 	} = useData();
 	const navigate = useNavigate();
 
@@ -15,7 +16,7 @@ export function AddressCard({ address, selected, showOptions }) {
 	async function selectAddress() {
 		try {
 			const { data } = await axios.post(
-				`https://kharidari.omkarkolate.repl.co/addresses/selectAddress/${userId}/${address._id}`
+				`${apiURL}/addresses/selectAddress/${userId}/${address._id}`
 			);
 			if (data.success) {
 				await dispatch({
@@ -34,7 +35,7 @@ export function AddressCard({ address, selected, showOptions }) {
 	async function removeAddress() {
 		try {
 			const { data } = await axios.delete(
-				`https://kharidari.omkarkolate.repl.co/addresses/${userId}/${address._id}`
+				`${apiURL}/addresses/${userId}/${address._id}`
 			);
 			if (data.success) {
 				await dispatch({

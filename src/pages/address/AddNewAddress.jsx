@@ -18,7 +18,7 @@ export function AddNewAddress() {
 
 	const {
 		state: { userId, addresses },
-		dispatch
+		dispatch, apiURL
 	} = useData();
 	const navigate = useNavigate();
 	const { state: routerState } = useLocation();
@@ -40,7 +40,7 @@ export function AddNewAddress() {
 		if (addressId) {
 			try {
 				const { data } = await axios.put(
-					`https://kharidari.omkarkolate.repl.co/addresses/${userId}/${addressId}`,
+					`${apiURL}/addresses/${userId}/${addressId}`,
 					formData
 				);
 				if (data.success) {
@@ -58,7 +58,7 @@ export function AddNewAddress() {
 		} else {
 			try {
 				const { data } = await axios.post(
-					`https://kharidari.omkarkolate.repl.co/addresses/${userId}`,
+					`${apiURL}/addresses/${userId}`,
 					formData
 				);
 				if (data.success) {

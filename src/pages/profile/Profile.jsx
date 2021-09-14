@@ -14,7 +14,7 @@ export function Profile() {
 		password: ""
 	});
 
-	const { state, dispatch } = useData();
+	const { state, dispatch, apiURL } = useData();
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
 
 	useEffect(() => {
@@ -30,7 +30,7 @@ export function Profile() {
 		try {
 			setIsLoaded(true);
 			const { data } = await axios.put(
-				`https://kharidari.omkarkolate.repl.co/users/${state.userId}`,
+				`${apiURL}/users/${state.userId}`,
 				formData
 			);
 			if (data.success) {

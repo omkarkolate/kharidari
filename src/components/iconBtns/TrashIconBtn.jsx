@@ -5,7 +5,7 @@ import { addOrRemoveFromWishlist } from "../utils";
 export function TrashIconBtn({ productId }) {
 	const {
 		state: { userId },
-		dispatch
+		dispatch, apiURL
 	} = useData();
 
 	const inWishlist = true;
@@ -14,7 +14,7 @@ export function TrashIconBtn({ productId }) {
 		<div
 			className={styles["heart-icon-btn"]}
 			onClick={() =>
-				addOrRemoveFromWishlist(inWishlist, userId, productId, dispatch)
+				addOrRemoveFromWishlist(inWishlist, userId, productId, dispatch, apiURL)
 			}
 		>
 			<svg
