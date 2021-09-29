@@ -3,7 +3,13 @@ import styles from "./addressCard.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export function AddressCard({ address, selected, showOptions }) {
+export function AddressCard({
+	address,
+	selected,
+	showOptions,
+	setCurrentSelectedAddress,
+	canSelect
+}) {
 	const {
 		state: { userId },
 		dispatch,
@@ -12,25 +18,6 @@ export function AddressCard({ address, selected, showOptions }) {
 	const navigate = useNavigate();
 
 	const addressDetails = `${address.house}, ${address.areaAndRoad}, ${address.city}, ${address.state} - ${address.pincode}`;
-
-	async function selectAddress() {
-		try {
-			const { data } = await axios.post(
-				`${apiURL}/addresses/selectAddress/${userId}/${address._id}`
-			);
-			if (data.success) {
-				await dispatch({
-					type: "SELECT_ADDRESS",
-					payload: data.selectedAddress
-				});
-			}
-		} catch (error) {
-			const {
-				response: { data }
-			} = error;
-			console.log(data.message, data.error);
-		}
-	}
 
 	async function removeAddress() {
 		try {
@@ -57,14 +44,14 @@ export function AddressCard({ address, selected, showOptions }) {
 
 	return (
 		<div className={styles["address-card"]}>
-			{showOptions && (
+			{canSelect && (
 				<div>
 					<input
 						type="radio"
 						name="SELECTED_ADDRESS"
 						id={address._id}
 						checked={selected}
-						onChange={() => selectAddress(address._id)}
+						onChange={() => setCurrentSelectedAddress(address)}
 					/>
 				</div>
 			)}

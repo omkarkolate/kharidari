@@ -19,11 +19,11 @@ export function Checkout() {
 
 	function changeOrAddAddress() {
 		if (productId) {
-			navigate("/address", {
+			navigate("/select-address", {
 				state: { fromCheckout: `/checkout/${productId}` }
 			});
 		} else {
-			navigate("/address", {
+			navigate("/select-address", {
 				state: { fromCheckout: "/checkout" }
 			});
 		}

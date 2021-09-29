@@ -15,7 +15,9 @@ import {
 	Profile,
 	Login,
 	NoMatch,
-	SignUp
+	SignUp,
+	ChangePassword,
+	SelectAddress
 } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
@@ -33,6 +35,7 @@ export default function App() {
 				<Route path="/cart" element={<Cart />} />
 				<PrivateRoute path="/wishlist" element={<Wishlist />} />
 				<PrivateRoute path="/address" element={<Address />} />
+				<PrivateRoute path="/select-address" element={<SelectAddress />} />
 				<PrivateRoute
 					path="/address/add-new-address"
 					element={<AddNewAddress />}
@@ -53,6 +56,7 @@ export default function App() {
 					element={<OrderDetails />}
 				/>
 				<PrivateRoute path="/profile" element={<Profile />} />
+				<PrivateRoute path="/change-password" element={<ChangePassword />} />
 				<PrivateRoute path="/successful" element={<Successful />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/signup" element={<SignUp />} />

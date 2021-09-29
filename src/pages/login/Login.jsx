@@ -4,12 +4,14 @@ import { useAuth } from "../../authProvider/AuthProvider";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useLoader } from "../../customHooks/useLoader";
 import { useData } from "../../dataProvider/DataProvider";
+import { validate, isAllInputsValid } from "../utils";
 
 export function Login() {
 	const [formData, setFormData] = useState({
-		emailId: "",
-		password: ""
+		emailId: { value: "", isValid: null, className: "text-input" },
+		password: { value: "", isValid: null, className: "text-input" }
 	});
+	const [validationError, setValidationError] = useState(null);
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
 	const { dispatch } = useData();
 	const { loginWithCredintials } = useAuth();
@@ -17,15 +19,25 @@ export function Login() {
 	const navigate = useNavigate();
 
 	function updateFormData(event) {
+		if (validationError) setValidationError(null);
+		if (error) setError(null);
+
 		const { id, value } = event.target;
-		setFormData({ ...formData, [id]: value });
+		const isValid = validate(id, value);
+		const className = isValid ? "text-input-valid" : "text-input-invalid";
+		setFormData({ ...formData, [id]: { value, isValid, className } });
 	}
 
 	async function loginHandler() {
+		if (!isAllInputsValid(formData)) {
+			setValidationError("Please fill the required information");
+			return;
+		}
+
 		setIsLoaded(true);
 		const data = await loginWithCredintials(
-			formData.emailId,
-			formData.password
+			formData.emailId.value,
+			formData.password.value
 		);
 
 		if (data.success) {
@@ -49,10 +61,10 @@ export function Login() {
 						</label>
 						<input
 							type="text"
-							className={styles["text-input"]}
+							className={styles[formData.emailId.className]}
 							placeholder="Email id*"
 							id="emailId"
-							value={formData.emailId}
+							value={formData.emailId.value}
 							onChange={updateFormData}
 						/>
 					</div>
@@ -62,10 +74,10 @@ export function Login() {
 						</label>
 						<input
 							type="password"
-							className={styles["text-input"]}
+							className={styles[formData.password.className]}
 							placeholder="Password*"
 							id="password"
-							value={formData.password}
+							value={formData.password.value}
 							onChange={updateFormData}
 						/>
 					</div>
@@ -73,6 +85,7 @@ export function Login() {
 						Login
 					</div>
 					<div className="loading">{isLoaded && "Loging in..."}</div>
+					<div className="error">{validationError}</div>
 					<div className="error">{error}</div>
 					<div className="loading">
 						Don't have an account goto{" "}
