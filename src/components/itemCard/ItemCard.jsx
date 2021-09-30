@@ -4,6 +4,7 @@ import { useAuth } from "../../authProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addOrRemoveFromWishlist } from "../utils";
+import { useLoader } from "../../customHooks/useLoader";
 
 export function ItemCard({
 	id,
@@ -17,11 +18,12 @@ export function ItemCard({
 }) {
 	const {
 		state: { wishlist, userId },
-		dispatch, apiURL
+		dispatch,
+		apiURL
 	} = useData();
 	const { isUserLogedin } = useAuth();
-
 	const navigate = useNavigate();
+	const { isLoaded, setIsLoaded } = useLoader();
 
 	const inWishlist = wishlist.find((product) => product._id === id);
 
@@ -32,11 +34,11 @@ export function ItemCard({
 	async function quantityUpadate(id, quantity) {
 		if (isUserLogedin) {
 			try {
-				const {
-					data
-				} = await axios.put(
+				const { data } = await axios.put(
 					`${apiURL}/cart/${userId}/${id}`,
-					{ quantity: quantity }
+					{
+						quantity: quantity
+					}
 				);
 				if (data.success) {
 					await dispatch({
@@ -59,6 +61,7 @@ export function ItemCard({
 	}
 
 	async function removeFromCart(id) {
+		setIsLoaded(true);
 		if (isUserLogedin) {
 			try {
 				const { data } = await axios.delete(
@@ -86,7 +89,10 @@ export function ItemCard({
 	}
 
 	async function moveToWishlist(id) {
-		await addOrRemoveFromWishlist(inWishlist, userId, id, dispatch);
+		setIsLoaded(true);
+		await addOrRemoveFromWishlist(inWishlist, userId, id, dispatch, apiURL);
+		setIsLoaded(false);
+
 		if (!inWishlist) {
 			await removeFromCart(id);
 		}
@@ -151,7 +157,11 @@ export function ItemCard({
 							onClick={() => moveToWishlist(id)}
 						>
 							{inWishlist
-								? "Remove from wishlist"
+								? isLoaded
+									? "Removing..."
+									: "Remove from wishlist"
+								: isLoaded
+								? "Moving..."
 								: "Move to wishlist"}
 						</div>
 					)}
@@ -159,7 +169,7 @@ export function ItemCard({
 						className={styles["remove"]}
 						onClick={() => removeFromCart(id)}
 					>
-						Remove
+						{isLoaded ? "Removing..." : "Remove"}
 					</div>
 				</div>
 			)}

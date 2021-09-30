@@ -46,14 +46,14 @@ export function Category() {
 	if (error) {
 		return (
 			<div className={styles["category-page"]}>
-				<Header brandName searchIcon />
+				<Header brandName />
 				<div className="error">Error: Somthing Went wrong. :(</div>
 			</div>
 		);
 	} else if (!isLoaded) {
 		return (
 			<div className={styles["category-page"]}>
-				<Header brandName searchIcon />
+				<Header brandName />
 				<div className="loading">Loading...</div>
 			</div>
 		);
@@ -76,7 +76,7 @@ export function Category() {
 
 		return (
 			<div className={styles["category-page"]}>
-				<Header brandName searchIcon />
+				<Header brandName />
 				<SortAndFilter />
 				<div className={styles["product-grid"]}>{products}</div>
 			</div>

@@ -30,6 +30,8 @@ export function Checkout() {
 	}
 
 	function gotoPayment(deliveryAddress, priceDetails) {
+		if (!deliveryAddress) return;
+
 		if (productId) {
 			navigate("/payment", {
 				state: {
@@ -114,7 +116,10 @@ export function Checkout() {
 
 					<div className={styles["product-list"]}>
 						{productsInCheckout}
-
+						<div className="error">
+							{!deliveryAddress &&
+								"Please select the delivery address before continue"}
+						</div>
 						<BottomActionBar
 							buttonText="CONTINUE"
 							totalAmount={totalAmount}

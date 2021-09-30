@@ -164,12 +164,6 @@ export function Header({ homepage, brandName, title, searchIcon }) {
 				</div>
 
 				<div className={styles["header-title"]}>{title ?? ""}</div>
-				<div className={styles["search-bar-md"]}>
-					<input
-						type="search"
-						placeholder="🔍 Search for Products, Brands and More"
-					/>
-				</div>
 			</div>
 
 			<div className={styles["header-right"]}>

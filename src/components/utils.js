@@ -13,7 +13,7 @@ export async function addOrRemoveFromWishlist(
 				`${apiURL}/wishlist/${userId}/${productId}`
 			);
 			if (data.success) {
-				dispatch({
+				await dispatch({
 					type: "REMOVE_FROM_WISHLIST",
 					payload: productId
 				});
@@ -23,7 +23,7 @@ export async function addOrRemoveFromWishlist(
 				`${apiURL}/wishlist/${userId}/${productId}`
 			);
 			if (data.success) {
-				dispatch({
+				await dispatch({
 					type: "ADD_TO_WISHLIST",
 					payload: data.product
 				});

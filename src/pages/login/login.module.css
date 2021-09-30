@@ -37,7 +37,7 @@
 	caret-color: #2874f0;
 }
 
-.text-input-valid{
+.text-input-valid {
 	padding: 0.5rem;
 	border: 1px solid gray;
 	border-radius: 0.2rem;
@@ -59,15 +59,19 @@
 	caret-color: red;
 }
 
-
-
-.login-btn {
+.login-btn,
+.guest-login-btn {
 	text-align: center;
 	width: 100%;
 	background-color: var(--color-primary);
 	color: var(--color-white);
 	padding: 0.5rem 0;
 	cursor: pointer;
+}
+
+.guest-login-btn {
+	margin-top: 1rem;
+	background-color: var(--color-secondary);
 }
 
 .link {

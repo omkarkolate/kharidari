@@ -136,7 +136,7 @@ export function SignUp() {
 						/>
 					</div>
 					<div className={styles["login-btn"]} onClick={signUp}>
-						Sign Up
+						{isLoaded ? "Siging Up..." : "Sign Up"}
 					</div>
 					<div className="error">{validationError}</div>
 					<div className="loading">
@@ -152,7 +152,6 @@ export function SignUp() {
 							</div>
 						)}
 					</div>
-					<div className="loading">{isLoaded && "Signing Up..."}</div>
 					<div className="error">{error}</div>
 				</form>
 			</div>

@@ -21,7 +21,9 @@ export function SelectAddress() {
 	const navigate = useNavigate();
 
 	function gotoAddNewAddress() {
-		navigate("/address/add-new-address");
+		navigate("/address/add-new-address", {
+			state: { fromCheckout: routerState.fromCheckout }
+		});
 	}
 
 	async function saveSelectAddress() {
@@ -50,7 +52,7 @@ export function SelectAddress() {
 		<AddressCard
 			key={address._id}
 			address={address}
-			selected={address._id === currentSelectedAddress._id}
+			selected={address._id === currentSelectedAddress?._id}
 			setCurrentSelectedAddress={setCurrentSelectedAddress}
 			showOptions
 			canSelect

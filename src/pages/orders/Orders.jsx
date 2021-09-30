@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header, ItemCard } from "../../components/";
+import { Header, ItemCard, MessageCard } from "../../components/";
 import styles from "./orders.module.css";
 import { useLoader } from "../../customHooks/useLoader";
 import axios from "axios";
@@ -7,7 +7,8 @@ import { useData } from "../../dataProvider/DataProvider";
 
 export function Orders() {
 	const {
-		state: { userId }, apiURL
+		state: { userId },
+		apiURL
 	} = useData();
 	const [orders, setOrders] = useState([]);
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
@@ -15,9 +16,7 @@ export function Orders() {
 	useEffect(() => {
 		(async function () {
 			try {
-				const { data } = await axios.get(
-					`${apiURL}/orders/${userId}`
-				);
+				const { data } = await axios.get(`${apiURL}/orders/${userId}`);
 				if (data.success) {
 					setOrders(data.orders);
 				}
@@ -71,7 +70,11 @@ export function Orders() {
 			<div>
 				<Header brandName title="My Orders" />
 				<div className={styles["orders"]}>
-					<div className={styles["order-list"]}>{ordersList}</div>
+					{orders.length > 0 ? (
+						<div className={styles["order-list"]}>{ordersList}</div>
+					) : (
+						<MessageCard message="No orders placed" />
+					)}
 				</div>
 			</div>
 		);

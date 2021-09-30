@@ -25,6 +25,7 @@
 	text-align: center;
 	margin: 0.3rem;
 	box-shadow: 0 0px 0px 0 rgb(0 0 0 / 20%), 0 0px 1px 0 rgb(0 0 0 / 19%);
+	border: 1px solid var(--color-lightgrey);
 }
 
 .category-img > span {
@@ -40,6 +41,12 @@
 	font-weight: 500;
 }
 
+.product-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	background-color: var(--color-white);
+}
+
 @media screen and (min-width: 768px) {
 	.search-bar {
 		display: none;
@@ -47,5 +54,12 @@
 
 	.categories-section {
 		padding-top: 1rem;
+	}
+
+	.product-grid {
+		padding: 1rem;
+		margin: 1rem;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		gap: 0 1rem;
 	}
 }
