@@ -132,7 +132,7 @@ export function Home() {
 			<div>
 				<Header homepage brandName />
 				{categories}
-				<hr/>
+				<hr />
 				<div className="error">Error: Somthing Went wrong. :(</div>
 			</div>
 		);
@@ -141,7 +141,7 @@ export function Home() {
 			<div>
 				<Header homepage brandName />
 				{categories}
-				<hr/>
+				<hr />
 				<div className="loading">Loading...</div>
 			</div>
 		);
@@ -159,9 +159,9 @@ export function Home() {
 
 		return (
 			<div>
-				<Header brandName />
+				<Header homepage brandName />
 				{categories}
-				<hr/>
+				<hr />
 				<h4 className="heading">Latest Products</h4>
 				<div className={styles["product-grid"]}>{productsList}</div>
 			</div>
