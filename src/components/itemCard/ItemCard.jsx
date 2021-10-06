@@ -23,7 +23,11 @@ export function ItemCard({
 	} = useData();
 	const { isUserLogedin } = useAuth();
 	const navigate = useNavigate();
-	const { isLoaded, setIsLoaded } = useLoader();
+	const {
+		isLoaded: wishlistLoader,
+		setIsLoaded: setWishlistLoader
+	} = useLoader();
+	const { isLoaded: cartLoader, setIsLoaded: setCartLoader } = useLoader();
 
 	const inWishlist = wishlist.find((product) => product._id === id);
 
@@ -61,7 +65,7 @@ export function ItemCard({
 	}
 
 	async function removeFromCart(id) {
-		setIsLoaded(true);
+		setCartLoader(true);
 		if (isUserLogedin) {
 			try {
 				const { data } = await axios.delete(
@@ -89,9 +93,9 @@ export function ItemCard({
 	}
 
 	async function moveToWishlist(id) {
-		setIsLoaded(true);
+		setWishlistLoader(true);
 		await addOrRemoveFromWishlist(inWishlist, userId, id, dispatch, apiURL);
-		setIsLoaded(false);
+		setWishlistLoader(false);
 
 		if (!inWishlist) {
 			await removeFromCart(id);
@@ -157,10 +161,10 @@ export function ItemCard({
 							onClick={() => moveToWishlist(id)}
 						>
 							{inWishlist
-								? isLoaded
+								? wishlistLoader
 									? "Removing..."
 									: "Remove from wishlist"
-								: isLoaded
+								: wishlistLoader
 								? "Moving..."
 								: "Move to wishlist"}
 						</div>
@@ -169,7 +173,7 @@ export function ItemCard({
 						className={styles["remove"]}
 						onClick={() => removeFromCart(id)}
 					>
-						{isLoaded ? "Removing..." : "Remove"}
+						{cartLoader ? "Removing..." : "Remove"}
 					</div>
 				</div>
 			)}

@@ -12,6 +12,10 @@ export function Login() {
 		password: { value: "", isValid: null, className: "text-input" }
 	});
 	const [validationError, setValidationError] = useState(null);
+	const {
+		isLoaded: isGuestLoaded,
+		setIsLoaded: setIsGuestLoaded
+	} = useLoader();
 	const { isLoaded, setIsLoaded, error, setError } = useLoader();
 	const { dispatch } = useData();
 	const { loginWithCredintials } = useAuth();
@@ -51,11 +55,11 @@ export function Login() {
 	}
 
 	async function guestLoginHandler() {
-		setIsLoaded(true);
+		setIsGuestLoaded(true);
 		const data = await loginWithCredintials("guest@email.com", "guest@123");
 
 		if (data.success) {
-			setIsLoaded(false);
+			setIsGuestLoaded(true);
 			await dispatch({ type: "SAVE_USER", payload: { ...data.user } });
 			navigate(state?.from ? state.from : "/");
 		} else {
@@ -102,7 +106,7 @@ export function Login() {
 						className={styles["guest-login-btn"]}
 						onClick={guestLoginHandler}
 					>
-						{isLoaded ? "Loging in..." : "Login as Guest"}
+						{isGuestLoaded ? "Loging in..." : "Login as Guest"}
 					</div>
 					<div className="error">{validationError}</div>
 					<div className="error">{error}</div>

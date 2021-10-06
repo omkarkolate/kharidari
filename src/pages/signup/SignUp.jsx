@@ -152,6 +152,9 @@ export function SignUp() {
 							</div>
 						)}
 					</div>
+					<div className={styles["login-link"]} onClick={gotoLogin}>
+						{!message && "Log in"}
+					</div>
 					<div className="error">{error}</div>
 				</form>
 			</div>
